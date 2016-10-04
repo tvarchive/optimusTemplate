@@ -1,0 +1,32 @@
+[
+  {
+    "belongsTo": "user_A",
+    "appDetails": {
+      "appDir": "app",
+      "appName": "<apk name here>",
+      "appPackage": "<app package here>",
+      "appActivity": "<app activity here>"
+    },
+    "deviceState": {
+      "clearNotification": true,
+      "clearADBLogs": true,
+      "grantAllPermissions": true,
+      "captureVideo": true
+    }
+  },
+  {
+    "belongsTo": "user_B",
+    "appDetails": {
+      "appDir": "app",
+      "appName": "<apk name here>",
+      "appPackage": "<app package here>",
+      "appActivity": "<app activity here>"
+    },
+    "deviceState": {
+      "clearNotification": true,
+      "clearADBLogs": true,
+      "grantAllPermissions": true,
+      "captureVideo": true
+    }
+  }
+]

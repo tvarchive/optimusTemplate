@@ -1,0 +1,70 @@
+group 'com.testvagrant.optimusTemplate'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+
+buildscript {
+    repositories {
+        maven {
+            url "http://api.genymotion.com/repositories/releases/" // if using genymotion for emulators
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.appium:java-client:4.0.0",
+                "org.codehaus.gpars:gpars:1.2.1",
+                "net.masterthought:cucumber-reporting:0.4.0"
+    }
+}
+
+
+plugins {
+    id "com.testvagrant.gradle.cukeGenerator" version "1.0-SNAPSHOT"
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+ext.cukesVersion = '1.2.4'
+
+dependencies {
+
+    compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
+    compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
+    compile group: 'info.cukes', name: 'cucumber-java8', version: "$cukesVersion"
+
+    compile files('libs/optimus-all-1.0-SNAPSHOT.jar')
+
+}
+
+
+
+def runSequentiallyForGivenFeatures() {
+
+    def tagList = System.getProperty("tags")
+    javaexec {
+        main = "cucumber.api.cli.Main"
+        classpath = sourceSets.test.runtimeClasspath
+        args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/cucumber.json", "--glue", "steps", "-t", tagsToRun(tagList),
+                "${project.projectDir}/src/test/java/features"]
+        systemProperties = [
+                "testFeed": System.getProperty("testFeed")
+        ]
+    }
+}
+
+
+task runInSequence() {
+    doLast {
+        runSequentiallyForGivenFeatures()
+    }
+
+}
+
+
