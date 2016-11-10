@@ -7,28 +7,61 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import utils.OptimusImpl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class StartingSteps extends BaseSteps {
+    private static volatile boolean dunit = false;
 
-    private static boolean dunit = false;
+
+
 
     @Before
     public void setUp(Scenario scenario) throws Exception {
+        String appJson = getAppJson(System.getProperty("testFeed") + ".json");
         runGlobalHooks();
 
-        String appJson = getAppJson(System.getProperty("testFeed") + ".json");
-
-        //register bots for as many devices as required for this test - appium server should be running
-        List<SmartBOT> smartBOTs = new OptimusPool().registerSmartBOTs(appJson, forScenario(getUniqueScenarioName(scenario)));
+        if (runModeFragmentation(appJson)) {
+            appJson = updateAppJsonWithUdid(appJson);
+        }
+        //register bots for as many devices as required for this test
+        List<SmartBOT> smartBOTs = new OptimusPool().registerSmartBOTs(appJson, getUniqueScenarioName(scenario));
         optimus = new OptimusImpl(having(smartBOTs));
+
     }
+
+    private String updateAppJsonWithUdid(String appJson) {
+        JSONObject jsonObject = new JSONObject(appJson);
+        JSONArray testFeedArray = (JSONArray) jsonObject.get("testFeed");
+        JSONObject testFeed = (JSONObject) testFeedArray.get(0);
+        JSONObject appiumServerCapabilities = (JSONObject) ((JSONObject) testFeed.get("optimusDesiredCapabilities")).get("appiumServerCapabilities");
+        appiumServerCapabilities.put("udid", System.getProperty("udid"));
+        return jsonObject.toString();
+    }
+
+    private boolean runModeFragmentation(String appJson) {
+        JSONObject jsonObject = new JSONObject(appJson);
+        Map<String, Object> executionMap = toMap((JSONObject) jsonObject.get("executionDetails"));
+        return executionMap.get("deviceFragmentation") != null;
+    }
+
+    private Map<String, Object> toMap(JSONObject appiumServerCapabilities) {
+        Iterator<String> keysIterator = appiumServerCapabilities.keys();
+        Map<String, Object> capabilitiesMap = new HashMap<>();
+        while (keysIterator.hasNext()) {
+            String key = keysIterator.next();
+            Object value = appiumServerCapabilities.get(key);
+
+            capabilitiesMap.put(key, value);
+        }
+        return capabilitiesMap;
+    }
+
 
     private void runGlobalHooks() {
         if (!dunit) {
@@ -37,12 +70,9 @@ public class StartingSteps extends BaseSteps {
         }
     }
 
+
     private List<SmartBOT> having(List<SmartBOT> smartBOTs) {
         return smartBOTs;
-    }
-
-    private String forScenario(String scenarioName) {
-        return scenarioName;
     }
 
     private String getAppJson(String fileName) {
@@ -65,6 +95,8 @@ public class StartingSteps extends BaseSteps {
         }
         optimus.deRegisterSmartBOTs();
     }
+
+
 
     private String getUniqueScenarioName(Scenario scenario) {
         ArrayList<String> scenariosList = new ArrayList<String>();

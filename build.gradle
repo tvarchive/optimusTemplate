@@ -11,20 +11,22 @@ buildscript {
         maven {
             url "http://api.genymotion.com/repositories/releases/" // if using genymotion for emulators
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
         mavenCentral()
     }
 
     dependencies {
         classpath "io.appium:java-client:4.0.0",
                 "org.codehaus.gpars:gpars:1.2.1",
-                "net.masterthought:cucumber-reporting:0.4.0"
+                "net.masterthought:cucumber-reporting:0.4.0",
+                "gradle.plugin.com.testvagrant.gradle:CukeIT-Parallel-Generator:1.0-SNAPSHOT"
     }
 }
 
 
-plugins {
-    id "com.testvagrant.gradle.cukeGenerator" version "1.0-SNAPSHOT"
-}
+apply plugin: "com.testvagrant.gradle.cukeGenerator"
 
 repositories {
     mavenCentral()
@@ -38,33 +40,50 @@ dependencies {
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-java8', version: "$cukesVersion"
+    compile group: 'org.json', name: 'json', version: '20131018'
 
     compile files('libs/optimus-all-1.0-SNAPSHOT.jar')
 
 }
 
-
-
-def runSequentiallyForGivenFeatures() {
-
-    def tagList = System.getProperty("tags")
-    javaexec {
-        main = "cucumber.api.cli.Main"
-        classpath = sourceSets.test.runtimeClasspath
-        args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/cucumber.json", "--glue", "steps", "-t", tagsToRun(tagList),
-                "${project.projectDir}/src/test/java/features"]
-        systemProperties = [
-                "testFeed": System.getProperty("testFeed")
-        ]
-    }
-}
-
-
-task runInSequence() {
+task runFragmentation() {
+    def udidList = ["192.168.56.101:5555", "192.168.56.102:5555"]
     doLast {
-        runSequentiallyForGivenFeatures()
+        runDeviceFragmentation(udidList)
+    }
+}
+
+
+def runDeviceFragmentation(List<String> udidList) {
+    println "Total devices -- " + udidList.size()
+    for (String udid : udidList) {
+        println "Device -- " + udid
+    }
+    GParsPool.withPool(2) {
+        udidList.eachParallel { String udid ->
+
+            javaexec {
+                main = "cucumber.api.cli.Main"
+                classpath = sourceSets.test.runtimeClasspath
+                args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/device_${udid}.json", "--glue", "steps", "-t", "@smoke-go-box",
+                        "${project.projectDir}/src/test/java/features"]
+                systemProperties = [
+                        "testFeed": System.getProperty("testFeed"),
+                        "udid"    : udid,
+                        "runMode" : "Fragmentation"
+                ]
+            }
+            println("Scenario output: ${reporting.baseDir}/cucumber/${udid}.log ")
+        }
     }
 
+
 }
+
+
+
+
+
+
 
 
