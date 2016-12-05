@@ -1,16 +1,33 @@
-[
-  {
-    "belongsTo": "user_A",
-    "appDetails": {
+{
+  "executionDetails": {
+    "appium_js_path": "/usr/local/bin/appium",
+    "appium_node_path": "/usr/local/bin/node"
+  },
+  "testFeed": [
+    {
+      "belongsTo": "rider",
+      "runsOn": "emulator",
       "appDir": "app",
-      "appName": "<apk name here>",
-      "appPackage": "<app package here>",
-      "appActivity": "<app activity here>"
-    },
-    "deviceState": {
-      "clearNotification": true,
-      "clearADBLogs": true,
-      "grantAllPermissions": true,
-      "captureVideo": true
+      "optimusDesiredCapabilities": {
+        "appiumServerCapabilities": {
+          "app": "app-staging-release.apk",
+          "platformName": "Android",
+          "udid": "123",
+          "newCommandTimeout": 180
+        },
+        "androidOnlyCapabilities": {
+          "appActivity": "com.gojek.app.Splash",
+          "appPackage": "com.gojek.app.staging",
+          "avdLaunchTimeout": 300000,
+          "useKeystore": false
+        }
+      },
+      "deviceState": {
+        "clearNotification": true,
+        "clearADBLogs": true,
+        "grantAllPermissions": true,
+        "captureVideo": true
+      }
     }
-  }]
+  ]
+}

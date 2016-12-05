@@ -1,11 +1,12 @@
 package pages;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 public class DriverLoginPage {
-    private AndroidDriver driver;
+    private AppiumDriver driver;
 
-    public DriverLoginPage(AndroidDriver driver) {
+    public DriverLoginPage(AppiumDriver driver) {
         this.driver = driver;
     }
 

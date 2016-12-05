@@ -1,11 +1,12 @@
 package pages;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 public class BookingPage {
-    private AndroidDriver driver;
+    private AppiumDriver driver;
 
-    public BookingPage(AndroidDriver driver) {
+    public BookingPage(AppiumDriver driver) {
         this.driver = driver;
     }
 

@@ -1,54 +1,98 @@
-group 'com.testvagrant.optimusTemplate'
-version '1.0-SNAPSHOT'
+import com.testvagrant.optimus.helpers.DeviceHelper
+import groovyx.gpars.GParsPool
 
 apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven'
 
-sourceCompatibility = 1.8
 
 
 buildscript {
+
     repositories {
+        mavenLocal()
         maven {
-            url "http://api.genymotion.com/repositories/releases/" // if using genymotion for emulators
+            url "http://api.genymotion.com/repositories/releases/"
         }
         maven {
             url "https://plugins.gradle.org/m2/"
         }
+
         mavenCentral()
+
     }
 
     dependencies {
-        classpath "io.appium:java-client:4.0.0",
-                "org.codehaus.gpars:gpars:1.2.1",
-                "net.masterthought:cucumber-reporting:0.4.0",
-                "gradle.plugin.com.testvagrant.gradle:CukeIT-Parallel-Generator:1.0-SNAPSHOT"
+        classpath "org.codehaus.gpars:gpars:1.2.1"
+        classpath "net.masterthought:cucumber-reporting:0.4.0"
+        classpath "gradle.plugin.com.tv.gradle:CukeIT-Parallel-Generator:1.0-SNAPSHOT"
+        classpath "com.testvagrant.optimus:optimus:1.0-SNAPSHOT"
     }
+
 }
 
 
-apply plugin: "com.testvagrant.gradle.cukeGenerator"
+apply plugin: "com.tv.gradle.cukeGenerator"
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
-
 
 ext.cukesVersion = '1.2.4'
 
 dependencies {
-
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-java8', version: "$cukesVersion"
-    compile group: 'org.json', name: 'json', version: '20131018'
 
-    compile files('libs/optimus-all-1.0-SNAPSHOT.jar')
+    compile 'org.codehaus.groovy:groovy-all:2.2.0'
+    compile('org.seleniumhq.selenium:selenium-java:2.53.1')
+    compile 'cglib:cglib:3.2.4'
 
+
+    compile('com.testvagrant.optimus:optimus:1.0-SNAPSHOT') {
+        changing true
+    }
+
+    testCompile('com.google.inject:guice:3.0')
+    testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
+    testCompile(group: 'org.json', name: 'json', version: '20131018')
 }
 
-task runFragmentation() {
-    def udidList = ["192.168.56.101:5555", "192.168.56.102:5555"]
+task cukeGenerator(type: com.tv.gradle.GenerateTask) {
+    def tags = tagsToRun(System.getProperty("tags"))
+    cukeParallelPlugin.tags = tags
+    cukeParallelPlugin.outputDirectory = new File("${project.projectDir}/src/test/java/generated-test-sources/cucumber")
+    cukeParallelPlugin.cucumberOutputDir = "target/cucumber-parallel"
+}
+
+def tagsToRun(String tagPointer) {
+    Properties props = new Properties()
+    props.load(new FileInputStream("src/test/resources/tagFile.properties"))
+    if (tagPointer != null)
+        return props.get(tagPointer)
+}
+
+task optimusSetup(type: JavaExec, dependsOn: 'classes') {
+    main = 'com.testvagrant.optimus.OptimusMain'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+def String getAppJson(String fileName) {
+    def file = new File('src/test/resources/' + fileName)
+    if (file.exists()) {
+        return file.text
+    }
+    return ''
+}
+
+
+task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
     doLast {
+        List<String> udidList = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria()
+        println udidList
         runDeviceFragmentation(udidList)
     }
 }
@@ -81,8 +125,37 @@ def runDeviceFragmentation(List<String> udidList) {
 }
 
 
+test {
+    exclude '**/*IT.class'
+}
 
 
+task(mergeReport, dependsOn: jar, type: JavaExec) {
+    main = 'com.testvagrant.optimus.entity.reportParser.ReporterMain'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+
+
+task runInParallel(type: Test, dependsOn: ['clean', 'build', 'cukeGenerator', 'optimusSetup']) {
+
+    if (System.getProperty("testFeed") != null)
+        maxParallelForks = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria().size()
+    println "number of forks -- " + maxParallelForks
+
+    systemProperty 'tags', System.getProperty("tags")
+    systemProperty 'testFeed', System.getProperty("testFeed")
+    systemProperty 'runMode', "Distribution"
+
+    cukeGenerator.mustRunAfter clean
+    build.mustRunAfter cukeGenerator
+
+    classpath = sourceSets.test.runtimeClasspath
+
+}
+
+
+runInParallel.finalizedBy(mergeReport)
 
 
 

@@ -1,6 +1,5 @@
 package utils;
 
-import com.testvagrant.optimus.device.OptimusPool;
 import com.testvagrant.optimus.entity.SmartBOT;
 import com.testvagrant.optimus.utils.ScreenShotGenerator;
 
@@ -24,15 +23,9 @@ public class OptimusImpl {
     }
 
 
-    public List<SmartBOT> getSmartBOTs() {
-        return smartBOTs;
-    }
-
     public byte[] getScreenCapture() throws IOException {
         return new ScreenShotGenerator(smartBOTs).getFailureImage();
     }
 
-    public void deRegisterSmartBOTs() {
-        new OptimusPool().deRegisterSmartBOTs(smartBOTs);
-    }
+
 }
