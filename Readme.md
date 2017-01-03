@@ -1,12 +1,12 @@
-#<span style="color:#B45F04">Optimus Template</span>
+#Optimus Template
 Optimus Template is the native framework for Optimus, designed to help you
 to get started with your tests in the swiftest time possible.
 
-####<span style="color:#B45F04">First things first</span>
+####First things first
 Before you get your hands on Optimus Template, please make sure your system meets the desired
 [prerequisites](Prerequisites.md)
 
-##<span style="color:#B45F04">Features</span>
+##Features
 Now that you have reached till here, we assume that your system is ready to host Optimus successfully. Before we jump straight into writing your first test with Optimus Template, let us understand the prowess of Optimus.
 With Optimus, you will be able to write tests capable of running in below modes without ever having to worry about managing servers or device setup.
 
@@ -19,7 +19,7 @@ If this might sound obvious like any other framework, with Optimus you will be a
     * Inter App
     * Mobile Web
 
-##<span style="color:#B45F04"> Test Feed</span>
+## Test Feed
 Optimus is extremely powerful yet fun to work with
 once you understand what to feed your tests, for a seamless automation experience.
 Test Feed, typically a JSON format, will let you control all your tests from a single source of truth,
@@ -30,7 +30,7 @@ giving you complete control of your tests execution. Any Test Feed will contain 
     * Android Only Capabilities
     * Device State
 
-#### <span style="color:#B45F04">Common Attributes</span>
+#### Common Attributes
 These attributes are set across all tests running on a common test feed.
 
    <pre>
@@ -39,13 +39,13 @@ These attributes are set across all tests running on a common test feed.
         <b>Application Directory</b>: Specifies the folder name where the application under test is placed.
        </pre>
 
-#####<span style="color:#B45F04">Example</span>
+#####Example
 
 ![](docs/CommonAttibutes.png)
 
 
 
-#### <span style="color:#B45F04">Appium Server Capabilities </span>
+#### Appium Server Capabilities 
 Optimus by default supports all the capabilities that Appium provides, which you can refer from [here](https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md).
 Since Optimus inherently possesses immense intelligence to handle all capabilities by default without troubling you much,
 all it needs are a couple of capabilities.
@@ -56,19 +56,19 @@ all it needs are a couple of capabilities.
    <b>Platform Name</b>: Specifies the platform to run the application on.
    </pre>
 
-#####<span style="color:#B45F04">Example </span>
+#####Example 
 ![](docs/AppiumServerCapabilities.png)
 
 These capabilities will be sufficient enough to run most of the tests if not all.
 Under which circumstances you may choose to provide additional
 [Appium Server Capabilities](https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md).
 
-####<span style="color:#B45F04"> Android only Capabilities </span>
+#### Android only Capabilities 
 Optimus supports all android related capabilities as specified [here](https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md).
 Optimus does not enforce any of these capabilities to be set for running your tests.
 However you are free to provide as many capabilities as you may need.
 
-#### <span style="color:#B45F04">Device State</span>
+#### Device State
 Optimus while being extremely faithful to Appium in terms of capabilities,
 it does provide few handy capabilities out of box which resolves many dire issues of mobile automation.
 
@@ -81,7 +81,7 @@ All these capabilities are boolean flags which by themselves are self-descriptiv
 
 With a fair idea of Optimus, now you are all set for your first test.
 
-##<span style="color:#B45F04">Getting started with Optimus Template</span>
+##Getting started with Optimus Template
 You can either fork Optimus Template repository or download the bundle from [here](//set link here).
 
 If you have forked Optimus Template, you can clone it onto your machine using
@@ -95,9 +95,9 @@ IntelliJ though.
 
 ![](ImportProject.gif)
 
-###<span style="color:#B45F04">Your First Test</span>
+###Your First Test
 Writing tests in Optimus is no different than the tests you write everyday,
 except that it does most of the heavy lifting, helping you to focus entirely on the test, 
 thus the philosophy of Optimus
 
-> <span style="color:#9A2EFE">Focus On Functionality</span>
+> Focus On Functionality
