@@ -1,5 +1,10 @@
 import com.testvagrant.optimus.helpers.DeviceHelper
 import groovyx.gpars.GParsPool
+import net.masterthought.cucumber.ReportBuilder
+import net.masterthought.cucumber.Configuration
+
+
+import java.text.DateFormat
 
 apply plugin: 'java'
 apply plugin: 'groovy'
@@ -25,7 +30,7 @@ buildscript {
 
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1"
-        classpath "net.masterthought:cucumber-reporting:0.4.0"
+        classpath "net.masterthought:cucumber-reporting:3.3.0"
         classpath "gradle.plugin.com.tv.gradle:CukeIT-Parallel-Generator:1.0-SNAPSHOT"
         classpath "com.testvagrant.optimus:optimus:1.0-SNAPSHOT"
     }
@@ -97,19 +102,22 @@ task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
     }
 }
 
+private String updateReportFileName(String name) {
+    String[] deviceIdString = name.split(":");
+    return deviceIdString.length > 1 ? "emulator_" + deviceIdString[0].substring(deviceIdString[0].lastIndexOf(".") + 1) : name;
+}
+
 
 def runDeviceFragmentation(List<String> udidList) {
-    println "Total devices -- " + udidList.size()
-    for (String udid : udidList) {
-        println "Device -- " + udid
-    }
-    GParsPool.withPool(2) {
+    def size = udidList.size()
+    println "Total devices -- " + size
+    GParsPool.withPool(size) {
         udidList.eachParallel { String udid ->
 
             javaexec {
                 main = "cucumber.api.cli.Main"
                 classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/device_${udid}.json", "--glue", "steps", "-t", "@smoke-go-box",
+                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/" + updateReportFileName(udid) + ".json"), "--glue", "steps", "-t", "@smoke-go-box",
                         "${project.projectDir}/src/test/java/features"]
                 systemProperties = [
                         "testFeed": System.getProperty("testFeed"),
@@ -120,7 +128,6 @@ def runDeviceFragmentation(List<String> udidList) {
             println("Scenario output: ${reporting.baseDir}/cucumber/${udid}.log ")
         }
     }
-
 
 }
 
@@ -154,8 +161,39 @@ task runInParallel(type: Test, dependsOn: ['clean', 'build', 'cukeGenerator', 'o
 
 }
 
+task generateFragmentationReport() {
+    doLast {
+        def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
+        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
+
+        List<String> jsonReportFiles = new ArrayList<String>();
+        jsonReports.each { File file ->
+            jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
+        }
+
+        String buildNumber = DateFormat.instance.format(new Date())
+        String projectName = "cucumberProject";
+        boolean runWithJenkins = false;
+        boolean parallelTesting = true;
+
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+//optional configuration
+        configuration.setParallelTesting(parallelTesting);
+        configuration.setRunWithJenkins(runWithJenkins);
+        configuration.setBuildNumber(buildNumber);
+
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
+        reportBuilder.generateReports();
+
+        println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
+    }
+}
+
+
 
 runInParallel.finalizedBy(mergeReport)
+runFragmentation.finalizedBy(generateFragmentationReport)
 
 
 
