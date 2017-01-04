@@ -19,7 +19,7 @@ If this might sound obvious like any other framework, with Optimus you will be a
     * Inter App
     * Mobile Web
 
-## Test Feed
+## Test Feed <a id="testFeed"></a>
 Optimus is extremely powerful yet fun to work with
 once you understand what to feed your tests, for a seamless automation experience.
 Test Feed, typically a JSON format, will let you control all your tests from a single source of truth,
@@ -34,6 +34,7 @@ giving you complete control of your tests execution. Any Test Feed will contain 
 These attributes are set across all tests running on a common test feed.
 
    <pre>
+        <b>Native App</b>: Sets the context for your test to run on a native app or mobile web
         <b>Belongs To</b>: Assigns the test to a particular application.
         <b>Runs On</b>: Assigns the test to user specific device. You can choose to run your tests either on device or emulator.
         <b>Application Directory</b>: Specifies the folder name where the application under test is placed.
@@ -41,7 +42,7 @@ These attributes are set across all tests running on a common test feed.
 
 #####Example
 
-![](docs/CommonAttibutes.png)
+![](docs/CommonAttributes.png)
 
 
 
@@ -95,9 +96,150 @@ IntelliJ though.
 
 ![](ImportProject.gif)
 
+Optimus Template is inherently a Page Object Model.
+If you are new to this design pattern, we strongly recommend you to read about [POM](http://martinfowler.com/bliki/PageObject.html),
+before you continue reading further.
+
+#### Template Structure
+If your download flavour is of type BDD, you will find that Optimus Template is
+structured in the lines of Cucumber with below structure
+
+``` java
+optimustemplate/
++-- build.gradle
++-- app //Store Application Under Test for Android or Ios platforms.
+    +-- hellooptimus.apk
++-- src/test
+    +-- java
+    ¦   +-- pages 
+    ¦        +-- BasePage.java 
+    ¦   +-- steps 
+    ¦       +-- BaseSteps.java
+    ¦       +-- StartingSteps.java
+    ¦   +-- utils 
+            +-- OptimusImpl.java
+    +-- resources
+    ¦   +-- features
+    ¦   ¦  +-- interApp.feature
+    ¦   ¦  +-- singleApp.feature
+    +-- interApp.json
+    +-- singleApp.json
+    +-- tagFile.properties
+```
+
+The template comes with few pre-defined classes. You can harness
+the power of Optimus through them.
+
+   <pre>
+    <b>BasePage.java</b>: Any page you create can extend BasePage to perform most of the
+    actions required to test your functionality, without having to reinvent the wheel.
+    <b>BaseSteps.java</b>: Any Step definition can extend BaseSteps.
+    <b>StartingSteps.java</b>: For Optimus Template use only.
+   </pre>
+
 ###Your First Test
 Writing tests in Optimus is no different than the tests you write everyday,
 except that it does most of the heavy lifting, helping you to focus entirely on the test, 
 thus the philosophy of Optimus
 
 > Focus On Functionality
+
+#### Building Test Feed
+If there is anything at your disposal to tame the mighty Optimus,
+then its your [TestFeed](#testFeed). Let us build a simple test feed similar to
+the one you will find the your project `singleApp.json`
+
+Under `resources` folder create a new json file called `helloOptimus.json`. You can copy below content in your newly created test feed.
+
+```json
+{
+  "executionDetails": {
+    "appium_js_path": "/usr/local/bin/appium",
+    "appium_node_path": "/usr/local/bin/node"
+  },
+  "testFeed":[
+    {
+      "belongsTo":"optimus",
+      "runsOn": "emulator",
+      "appDir": "app",
+      "nativeApp":true,
+      "optimusDesiredCapabilities": {
+        "appiumServerCapabilities": {
+          "app": "hellooptimus.apk",
+          "platformName": "Android"
+        },
+        "androidOnlyCapabilities": {
+          "appActivity": "com.testvagrant.hellooptimus.MainActivity",
+          "appPackage": "com.testvagrant.hellooptimus",
+          "avdLaunchTimeout": 300000,
+          "useKeystore": false
+        }
+      }
+    }
+  ]
+}
+```
+
+You would generally read this test feed as 
+<pre>
+Create a driver which <b>belongsTo</b> <b>optimus</b> for an app <b>hellooptimus</b> running on
+<b>emulator</b> on <b>Android</b> platform.
+</pre>
+
+You can create number of variations to this test feed matching your functionality.
+
+### Feature file
+Under package `features` create a new feature `HelloOptimus.feature`.
+
+``` gherkin
+Feature: Say Hello to Optimus
+
+  @helloOptimus
+  Scenario: Hello Optimus
+    Given I have optimus hello application
+    When I open it on either emulator, simulator or device on any platform
+    Then I should be able to say a hello to optimus
+```
+
+Go ahead and create a step definition file for above feature under `steps` package.
+
+``` java 
+public class HelloOptimusSteps extends BaseSteps{
+    @Given("^I have optimus hello application$")
+    public void iHaveOptimusHelloApplication() throws Throwable {
+        getDriverInstanceFor("optimus");
+    }
+
+    @When("^I open it on either emulator, simulator or device on any platform$")
+    public void iOpenItOnEitherEmulatorSimulatorOrDeviceOnAnyPlatform() throws Throwable {
+
+    }
+
+    @Then("^I should be able to say a hello to optimus$")
+    public void iShouldBeAbleToSayAHelloToOptimus() throws Throwable {
+
+    }
+}
+```
+To access the webDriver for your application, all you would need is `getDriverInstanceFor(<belongsTo>)`. This is a powerful approach when you do interApp testing.
+
+Now you are all set to run your first test. Lets get a bit geeky here.
+Bootup your favourite emulator.
+Open your terminal and navigate to your project folder
+and try below command.
+
+```bash
+gradle runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+```
+ or
+ 
+```bash
+gradle runInParallel -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+```
+ 
+After all the initial setup process you will be able to see `optimushello` app appear on your emulator screen
+
+![](docs/HelloOptimus.png)
+
+Kudos for your first successful test with Optimus. Have a great time.
+For any additional queries reach out to us at info@testvagrant.com

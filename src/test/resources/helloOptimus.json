@@ -1,0 +1,26 @@
+{
+  "executionDetails": {
+    "appium_js_path": "/usr/local/bin/appium",
+    "appium_node_path": "/usr/local/bin/node"
+  },
+  "testFeed":[
+    {
+      "nativeApp":true,
+      "belongsTo":"optimus",
+      "runsOn": "emulator",
+      "appDir": "app",
+      "optimusDesiredCapabilities": {
+        "appiumServerCapabilities": {
+          "app": "hellooptimus.apk",
+          "platformName": "Android"
+        },
+        "androidOnlyCapabilities": {
+          "appActivity": "com.testvagrant.hellooptimus.MainActivity",
+          "appPackage": "com.testvagrant.hellooptimus",
+          "avdLaunchTimeout": 300000,
+          "useKeystore": false
+        }
+      }
+    }
+  ]
+}
