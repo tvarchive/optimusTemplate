@@ -1,4 +1,4 @@
-import com.testvagrant.optimus.helpers.DeviceHelper
+//import com.testvagrant.optimus.helpers.DeviceHelper
 import groovyx.gpars.GParsPool
 import net.masterthought.cucumber.ReportBuilder
 import net.masterthought.cucumber.Configuration
@@ -32,8 +32,8 @@ buildscript {
         classpath "org.codehaus.gpars:gpars:1.2.1"
         classpath "net.masterthought:cucumber-reporting:3.3.0"
         classpath "gradle.plugin.com.tv.gradle:CukeIT-Parallel-Generator:1.0-SNAPSHOT"
-        classpath "com.testvagrant.optimus:optimus:1.0-SNAPSHOT"
-//        classpath files("libs/optimus-all-1.0-SNAPSHOT.jar")
+//        classpath "com.testvagrant.optimus:optimus:1.0-SNAPSHOT"
+        classpath files("libs/optimus-all-1.0-SNAPSHOT.jar")
 
     }
 
@@ -59,11 +59,11 @@ dependencies {
     compile 'cglib:cglib:3.2.4'
 
 
-    compile('com.testvagrant.optimus:optimus:1.0-SNAPSHOT') {
-        changing true
-    }
+//    compile('com.testvagrant.optimus:optimus:1.0-SNAPSHOT') {
+//        changing true
+//    }
 
-//        compile files("libs/optimus-all-1.0-SNAPSHOT.jar")
+        compile files("libs/optimus-all-1.0-SNAPSHOT.jar")
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
     testCompile(group: 'org.json', name: 'json', version: '20131018')
@@ -99,7 +99,7 @@ def String getAppJson(String fileName) {
 
 task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
     doLast {
-        List<String> udidList = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria()
+//        List<String> udidList = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria()
         println udidList
         runDeviceFragmentation(udidList)
     }
@@ -150,7 +150,7 @@ task(mergeReport, dependsOn: jar, type: JavaExec) {
 task runInParallel(type: Test, dependsOn: ['clean', 'build', 'cukeGenerator', 'optimusSetup']) {
 doLast {
     if (System.getProperty("testFeed") != null)
-        maxParallelForks = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria().size()
+//        maxParallelForks = new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria().size()
     println "number of forks -- " + maxParallelForks
 
     systemProperty 'tags', System.getProperty("tags")
@@ -193,14 +193,14 @@ def generateReport(Boolean isFragmentation) {
     boolean runWithJenkins = false;
     boolean parallelTesting = isFragmentation;
 
-    org.gradle.api.artifacts.Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+//    org.gradle.api.artifacts.Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 //optional configuration
     configuration.setParallelTesting(parallelTesting);
     configuration.setRunWithJenkins(runWithJenkins);
     configuration.setBuildNumber(buildNumber);
 
 
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
+//    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
     reportBuilder.generateReports();
 
     println("\nReport available on: ${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html")
@@ -209,9 +209,9 @@ def generateReport(Boolean isFragmentation) {
 
 
 runInParallel.finalizedBy(mergeReport)
-mergeReport.finalizedBy(generateReportForDistribution)
+//mergeReport.finalizedBy(generateReportForDistribution)
 
-runFragmentation.finalizedBy(generateFragmentationReport)
+//runFragmentation.finalizedBy(generateFragmentationReport)
 
 
 

@@ -6,8 +6,169 @@ to get started with your tests in the swiftest time possible.
 Before you get your hands on Optimus Template, please make sure your system meets the desired
 [prerequisites](Prerequisites.md)
 
+##Getting started with Optimus Template
+You can either fork Optimus Template repository or download the bundle from [here](//set link here).
+
+If you have forked Optimus Template, you can clone it onto your machine using
+
+```bash
+git clone <Enter git clone link here>
+```
+
+Use your favourite IDE for building the project, however we love
+IntelliJ though.
+
+![](ImportProject.gif)
+
+Optimus Template is inherently a Page Object Model.
+If you are new to this design pattern, we strongly recommend you to read about [Page Object Model](http://martinfowler.com/bliki/PageObject.html),
+before you continue reading further.
+
+#### Template Structure
+If your download flavour is of type BDD, you will find that Optimus Template is
+structured in the lines of Cucumber with below structure
+
+``` java
+optimustemplate/
++-- build.gradle
++-- app //Store Application Under Test for Android or Ios platforms.
+    +-- hellooptimus.apk
++-- src/test
+    +-- java
+    ¦   +-- pages 
+    ¦        +-- BasePage.java 
+    ¦   +-- steps 
+    ¦       +-- BaseSteps.java
+    ¦       +-- StartingSteps.java
+    ¦   +-- utils 
+            +-- OptimusImpl.java
+    +-- resources
+    ¦   +-- features
+    ¦   ¦  +-- interApp.feature
+    ¦   ¦  +-- singleApp.feature
+    +-- interApp.json
+    +-- singleApp.json
+    +-- tagFile.properties
+```
+
+The template comes with few pre-defined classes. You can harness
+the power of Optimus through them.
+
+   <pre>
+    <b>BasePage.java</b>: Any page you create can extend BasePage to perform most of the
+    actions required to test your functionality, without having to reinvent the wheel.
+    <b>BaseSteps.java</b>: Any Step definition can extend BaseSteps.
+    <b>StartingSteps.java</b>: For Optimus Template use only.
+   </pre>
+
+###Your First Test
+Writing tests in Optimus is no different than the tests you write everyday,
+except that it does most of the heavy lifting, helping you to focus entirely on the test, 
+thus the philosophy of Optimus
+
+> Focus On Functionality
+
+#### Building Test Feed
+If there is anything at your disposal to tame the mighty Optimus,
+then its your [TestFeed](#testFeed). Let us build a simple test feed similar to
+the one you will find in your project `singleApp.json`
+
+Under `resources` folder create a new json file called `helloOptimus.json`. You can copy below content in your newly created test feed.
+
+```json
+{
+  "executionDetails": {
+    "appium_js_path": "/usr/local/bin/appium",
+    "appium_node_path": "/usr/local/bin/node"
+  },
+  "testFeed":[
+    {
+      "belongsTo":"optimus",
+      "runsOn": "emulator",
+      "appDir": "app",
+      "nativeApp":true,
+      "optimusDesiredCapabilities": {
+        "appiumServerCapabilities": {
+          "app": "hellooptimus.apk",
+          "platformName": "Android"
+        },
+        "androidOnlyCapabilities": {
+          "appActivity": "com.testvagrant.hellooptimus.MainActivity",
+          "appPackage": "com.testvagrant.hellooptimus",
+          "avdLaunchTimeout": 300000,
+          "useKeystore": false
+        }
+      }
+    }
+  ]
+}
+```
+
+Optimus would generally read this test feed as 
+<pre>
+Create a driver which <b>belongsTo</b> <b>optimus</b> for an app <b>hellooptimus</b> running on
+<b>emulator</b> on <b>Android</b> platform.
+</pre>
+
+You can create number of variations to this test feed matching your functionality.
+
+### Feature file
+Under package `features` create a new feature `HelloOptimus.feature`.
+
+``` gherkin
+Feature: Say Hello to Optimus
+
+  @helloOptimus
+  Scenario: Hello Optimus
+    Given I have optimus hello application
+    When I open it on either emulator, simulator or device on any platform
+    Then I should be able to say a hello to optimus
+```
+
+Go ahead and create a step definition file for above feature under `steps` package.
+
+``` java 
+public class HelloOptimusSteps extends BaseSteps{
+    @Given("^I have optimus hello application$")
+    public void iHaveOptimusHelloApplication() throws Throwable {
+        getDriverInstanceFor("optimus");
+    }
+
+    @When("^I open it on either emulator, simulator or device on any platform$")
+    public void iOpenItOnEitherEmulatorSimulatorOrDeviceOnAnyPlatform() throws Throwable {
+
+    }
+
+    @Then("^I should be able to say a hello to optimus$")
+    public void iShouldBeAbleToSayAHelloToOptimus() throws Throwable {
+
+    }
+}
+```
+To access the webDriver for your application, all you would need is `getDriverInstanceFor(<belongsTo>)`. This is a powerful approach when you do interApp testing.
+
+Now you are all set to run your first test. Lets get a bit geeky here.
+Bootup your favourite emulator.
+Open your terminal and navigate to your project folder
+and try below command.
+
+```bash
+gradle runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+```
+ or
+ 
+```bash
+gradle runInParallel -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+```
+ 
+After all the initial setup process you will be able to see `optimushello` app appear on your emulator screen
+
+![](docs/HelloOptimus.png)
+
+Kudos for your first successful test with Optimus. Now that you have reached here, let us understand the basic features and building blocks of Optimus.
+
+
 ##Features
-Now that you have reached till here, we assume that your system is ready to host Optimus successfully. Before we jump straight into writing your first test with Optimus Template, let us understand the prowess of Optimus.
 With Optimus, you will be able to write tests capable of running in below modes without ever having to worry about managing servers or device setup.
 
     * Distributed Mode
@@ -80,166 +241,7 @@ it does provide few handy capabilities out of box which resolves many dire issue
 
 All these capabilities are boolean flags which by themselves are self-descriptive.
 
-With a fair idea of Optimus, now you are all set for your first test.
+With this fair amount of idea, you are now all set to start your Automation Journey with Optimus. If you have any specific queries reach 
+out to us at info@testvagrant.com
 
-##Getting started with Optimus Template
-You can either fork Optimus Template repository or download the bundle from [here](//set link here).
 
-If you have forked Optimus Template, you can clone it onto your machine using
-
-```bash
-git clone <Enter git clone link here>
-```
-
-Use your favourite IDE for building the project, however we love
-IntelliJ though.
-
-![](ImportProject.gif)
-
-Optimus Template is inherently a Page Object Model.
-If you are new to this design pattern, we strongly recommend you to read about [POM](http://martinfowler.com/bliki/PageObject.html),
-before you continue reading further.
-
-#### Template Structure
-If your download flavour is of type BDD, you will find that Optimus Template is
-structured in the lines of Cucumber with below structure
-
-``` java
-optimustemplate/
-+-- build.gradle
-+-- app //Store Application Under Test for Android or Ios platforms.
-    +-- hellooptimus.apk
-+-- src/test
-    +-- java
-    ¦   +-- pages 
-    ¦        +-- BasePage.java 
-    ¦   +-- steps 
-    ¦       +-- BaseSteps.java
-    ¦       +-- StartingSteps.java
-    ¦   +-- utils 
-            +-- OptimusImpl.java
-    +-- resources
-    ¦   +-- features
-    ¦   ¦  +-- interApp.feature
-    ¦   ¦  +-- singleApp.feature
-    +-- interApp.json
-    +-- singleApp.json
-    +-- tagFile.properties
-```
-
-The template comes with few pre-defined classes. You can harness
-the power of Optimus through them.
-
-   <pre>
-    <b>BasePage.java</b>: Any page you create can extend BasePage to perform most of the
-    actions required to test your functionality, without having to reinvent the wheel.
-    <b>BaseSteps.java</b>: Any Step definition can extend BaseSteps.
-    <b>StartingSteps.java</b>: For Optimus Template use only.
-   </pre>
-
-###Your First Test
-Writing tests in Optimus is no different than the tests you write everyday,
-except that it does most of the heavy lifting, helping you to focus entirely on the test, 
-thus the philosophy of Optimus
-
-> Focus On Functionality
-
-#### Building Test Feed
-If there is anything at your disposal to tame the mighty Optimus,
-then its your [TestFeed](#testFeed). Let us build a simple test feed similar to
-the one you will find the your project `singleApp.json`
-
-Under `resources` folder create a new json file called `helloOptimus.json`. You can copy below content in your newly created test feed.
-
-```json
-{
-  "executionDetails": {
-    "appium_js_path": "/usr/local/bin/appium",
-    "appium_node_path": "/usr/local/bin/node"
-  },
-  "testFeed":[
-    {
-      "belongsTo":"optimus",
-      "runsOn": "emulator",
-      "appDir": "app",
-      "nativeApp":true,
-      "optimusDesiredCapabilities": {
-        "appiumServerCapabilities": {
-          "app": "hellooptimus.apk",
-          "platformName": "Android"
-        },
-        "androidOnlyCapabilities": {
-          "appActivity": "com.testvagrant.hellooptimus.MainActivity",
-          "appPackage": "com.testvagrant.hellooptimus",
-          "avdLaunchTimeout": 300000,
-          "useKeystore": false
-        }
-      }
-    }
-  ]
-}
-```
-
-You would generally read this test feed as 
-<pre>
-Create a driver which <b>belongsTo</b> <b>optimus</b> for an app <b>hellooptimus</b> running on
-<b>emulator</b> on <b>Android</b> platform.
-</pre>
-
-You can create number of variations to this test feed matching your functionality.
-
-### Feature file
-Under package `features` create a new feature `HelloOptimus.feature`.
-
-``` gherkin
-Feature: Say Hello to Optimus
-
-  @helloOptimus
-  Scenario: Hello Optimus
-    Given I have optimus hello application
-    When I open it on either emulator, simulator or device on any platform
-    Then I should be able to say a hello to optimus
-```
-
-Go ahead and create a step definition file for above feature under `steps` package.
-
-``` java 
-public class HelloOptimusSteps extends BaseSteps{
-    @Given("^I have optimus hello application$")
-    public void iHaveOptimusHelloApplication() throws Throwable {
-        getDriverInstanceFor("optimus");
-    }
-
-    @When("^I open it on either emulator, simulator or device on any platform$")
-    public void iOpenItOnEitherEmulatorSimulatorOrDeviceOnAnyPlatform() throws Throwable {
-
-    }
-
-    @Then("^I should be able to say a hello to optimus$")
-    public void iShouldBeAbleToSayAHelloToOptimus() throws Throwable {
-
-    }
-}
-```
-To access the webDriver for your application, all you would need is `getDriverInstanceFor(<belongsTo>)`. This is a powerful approach when you do interApp testing.
-
-Now you are all set to run your first test. Lets get a bit geeky here.
-Bootup your favourite emulator.
-Open your terminal and navigate to your project folder
-and try below command.
-
-```bash
-gradle runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
-```
- or
- 
-```bash
-gradle runInParallel -DtestFeed="helloOptimus" -Dtags=@helloOptimus
-```
- 
-After all the initial setup process you will be able to see `optimushello` app appear on your emulator screen
-
-![](docs/HelloOptimus.png)
-
-Kudos for your first successful test with Optimus. Have a great time.
-For any additional queries reach out to us at info@testvagrant.com
