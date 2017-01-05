@@ -73,7 +73,7 @@ task cukeGenerator(type: com.tv.gradle.GenerateTask) {
     def tags = tagsToRun(System.getProperty("tags"))
     cukeParallelPlugin.tags = tags
     cukeParallelPlugin.outputDirectory = new File("${project.projectDir}/src/test/java/generated-test-sources/cucumber")
-    cukeParallelPlugin.cucumberOutputDir = "target/cucumber-parallel"
+    cukeParallelPlugin.cucumberOutputDir = "${reporting.baseDir}/cucumber-parallel/"
 }
 
 def tagsToRun(String tagPointer) {
@@ -165,38 +165,52 @@ doLast {
 
 }
 
-task generateFragmentationReport() {
+task generateReportForDistribution() {
     doLast {
-        def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
-        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
-
-        List<String> jsonReportFiles = new ArrayList<String>();
-        jsonReports.each { File file ->
-            jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
-        }
-
-        String buildNumber = DateFormat.instance.format(new Date())
-        String projectName = "cucumberProject";
-        boolean runWithJenkins = false;
-        boolean parallelTesting = true;
-
-        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-//optional configuration
-        configuration.setParallelTesting(parallelTesting);
-        configuration.setRunWithJenkins(runWithJenkins);
-        configuration.setBuildNumber(buildNumber);
-
-
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
-        reportBuilder.generateReports();
-
-        println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
+        generateReport(false)
     }
 }
 
 
 
+task generateReportForFragmentation() {
+    doLast {
+        generateReport(true)
+    }
+}
+
+def generateReport(Boolean isFragmentation) {
+    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
+    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
+
+    List<String> jsonReportFiles = new ArrayList<String>();
+    jsonReports.each { File file ->
+        jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
+    }
+
+    String buildNumber = DateFormat.instance.format(new Date())
+    String projectName = "cucumberProject";
+    boolean runWithJenkins = false;
+    boolean parallelTesting = isFragmentation;
+
+    org.gradle.api.artifacts.Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+//optional configuration
+    configuration.setParallelTesting(parallelTesting);
+    configuration.setRunWithJenkins(runWithJenkins);
+    configuration.setBuildNumber(buildNumber);
+
+
+    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
+    reportBuilder.generateReports();
+
+    println("\nReport available on: ${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html")
+
+}
+
+
 runInParallel.finalizedBy(mergeReport)
+mergeReport.finalizedBy(generateReportForDistribution)
+
 runFragmentation.finalizedBy(generateFragmentationReport)
 
 
