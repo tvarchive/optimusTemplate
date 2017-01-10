@@ -3,10 +3,10 @@
     "appium_js_path": "/usr/local/bin/appium",
     "appium_node_path": "/usr/local/bin/node"
   },
-  "testFeed":[
+  "testFeed": [
     {
-      "nativeApp":true,
-      "belongsTo":"optimus",
+      "nativeApp": true,
+      "belongsTo": "optimus",
       "runsOn": "emulator",
       "appDir": "app",
       "optimusDesiredCapabilities": {
@@ -20,6 +20,12 @@
           "avdLaunchTimeout": 300000,
           "useKeystore": false
         }
+      },
+      "deviceState": {
+        "clearNotification": false,
+        "clearADBLogs": false,
+        "grantAllPermissions": false,
+        "captureVideo": false
       }
     }
   ]

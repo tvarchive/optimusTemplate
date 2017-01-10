@@ -10,7 +10,9 @@ import cucumber.api.java.Before;
 import org.apache.commons.io.IOUtils;
 import utils.OptimusImpl;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 
@@ -20,7 +22,7 @@ public class StartingSteps extends BaseSteps {
     @Before
     public void setUp(Scenario scenario) throws Exception {
         String testFeed = System.getProperty("testFeed") + ".json";
-
+        System.out.println("file name -- " + testFeed);
         controller = new OptimusController(getAppJson(testFeed));
         smartBOTs = controller.registerSmartBOTs(getUniqueScenarioName(scenario));
         optimus = new OptimusImpl(having(smartBOTs));
@@ -32,10 +34,14 @@ public class StartingSteps extends BaseSteps {
     }
 
     private String getAppJson(String fileName) {
+//        System.out.println("file name -- " + fileName);
         String result = "";
         ClassLoader classLoader = getClass().getClassLoader();
         try {
-            result = IOUtils.toString(classLoader.getResourceAsStream(fileName));
+            InputStream resourceAsStream = classLoader.getResourceAsStream(fileName);
+            result = IOUtils.toString(resourceAsStream);
+        } catch (FileNotFoundException f) {
+            throw new RuntimeException("File not found exception");
         } catch (IOException e) {
             e.printStackTrace();
         }
