@@ -7,7 +7,7 @@
     {
       "nativeApp": true,
       "belongsTo": "optimus",
-      "runsOn": "emulator",
+      "runsOn": "any",
       "appDir": "app",
       "optimusDesiredCapabilities": {
         "appiumServerCapabilities": {
