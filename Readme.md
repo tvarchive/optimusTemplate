@@ -241,6 +241,10 @@ it does provide few handy capabilities out of box which resolves many dire issue
 
 All these capabilities are boolean flags which by themselves are self-descriptive.
 
+#### Supported Platforms
+    * Android - SDK Emulators, Genymotion Emulators and all devices
+    * IOS - Simulators and Devices
+
 With this fair amount of idea, you are now all set to start your Automation Journey with Optimus. If you have any specific queries reach 
 out to us at info@testvagrant.com
 
