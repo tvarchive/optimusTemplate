@@ -1,0 +1,131 @@
+2017-01-15 13:58:18 INFO  DeviceMatrix:19 - [DeviceDetails{deviceName='Android SDK built for x86_64', udid='emulator-5554', status='null', platform=ANDROID, platformVersion='7.0', runsOn=EMULATOR}, DeviceDetails{deviceName='Android SDK built for x86_64', udid='emulator-5554', status='null', platform=ANDROID, platformVersion='7.0', runsOn=DEVICE}, DeviceDetails{deviceName='iPhone 5', udid='1BCAFF89-09CD-43B4-AFD2-996A8300A587', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 5s', udid='39C04F66-4586-462D-AEC4-45F987E033D6', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 6', udid='12B06864-77E5-4565-99F6-BEEBCA726F8C', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 6 Plus', udid='E75A24BF-ECE7-4EF8-B862-FEA1DB6B302F', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 6s', udid='02BA1EBB-DC05-4DB9-838F-150B601C8041', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 6s Plus', udid='B44A35FF-760C-42F7-B6A1-BB036C5EB6A8', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 7', udid='FC664168-99D3-4260-936F-CA8BFBEB8DBC', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone 7 Plus', udid='5840577B-FF24-42DC-BC20-6AF54C123925', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}, DeviceDetails{deviceName='iPhone SE', udid='B4B2B180-2213-4603-953A-168F5180E528', status='null', platform=IOS, platformVersion='10.2', runsOn=SIMULATOR}]
+2017-01-15 13:58:37 DEBUG RequestAddCookies:122 - CookieSpec selected: default
+2017-01-15 13:58:37 DEBUG RequestAddCookies:122 - CookieSpec selected: default
+2017-01-15 13:58:37 DEBUG RequestAuthCache:76 - Auth cache not set in the context
+2017-01-15 13:58:37 DEBUG RequestAuthCache:76 - Auth cache not set in the context
+2017-01-15 13:58:37 DEBUG PoolingHttpClientConnectionManager:249 - Connection request: [route: {}->http://127.0.0.1:18286][total kept alive: 0; route allocated: 0 of 2000; total allocated: 0 of 2000]
+2017-01-15 13:58:37 DEBUG PoolingHttpClientConnectionManager:249 - Connection request: [route: {}->http://127.0.0.1:12239][total kept alive: 0; route allocated: 0 of 2000; total allocated: 0 of 2000]
+2017-01-15 13:58:37 DEBUG PoolingHttpClientConnectionManager:282 - Connection leased: [id: 0][route: {}->http://127.0.0.1:12239][total kept alive: 0; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:58:37 DEBUG MainClientExec:234 - Opening connection {}->http://127.0.0.1:12239
+2017-01-15 13:58:37 DEBUG PoolingHttpClientConnectionManager:282 - Connection leased: [id: 0][route: {}->http://127.0.0.1:18286][total kept alive: 0; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:58:37 DEBUG DefaultHttpClientConnectionOperator:138 - Connecting to /127.0.0.1:12239
+2017-01-15 13:58:38 DEBUG DefaultHttpClientConnectionOperator:145 - Connection established 127.0.0.1:53685<->127.0.0.1:12239
+2017-01-15 13:58:38 DEBUG DefaultManagedHttpClientConnection:90 - http-outgoing-0: set socket timeout to 10800000
+2017-01-15 13:58:38 DEBUG MainClientExec:255 - Executing request POST /wd/hub/session HTTP/1.1
+2017-01-15 13:58:38 DEBUG MainClientExec:260 - Target auth state: UNCHALLENGED
+2017-01-15 13:58:38 DEBUG MainClientExec:266 - Proxy auth state: UNCHALLENGED
+2017-01-15 13:58:38 DEBUG MainClientExec:234 - Opening connection {}->http://127.0.0.1:18286
+2017-01-15 13:58:38 DEBUG headers:135 - http-outgoing-0 >> POST /wd/hub/session HTTP/1.1
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Content-Type: application/json; charset=utf-8
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Content-Length: 350
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Host: 127.0.0.1:12239
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Connection: Keep-Alive
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)
+2017-01-15 13:58:38 DEBUG DefaultHttpClientConnectionOperator:138 - Connecting to /127.0.0.1:18286
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Accept-Encoding: gzip,deflate
+2017-01-15 13:58:38 DEBUG DefaultHttpClientConnectionOperator:145 - Connection established 127.0.0.1:53686<->127.0.0.1:18286
+2017-01-15 13:58:38 DEBUG DefaultManagedHttpClientConnection:90 - http-outgoing-0: set socket timeout to 10800000
+2017-01-15 13:58:38 DEBUG MainClientExec:255 - Executing request POST /wd/hub/session HTTP/1.1
+2017-01-15 13:58:38 DEBUG MainClientExec:260 - Target auth state: UNCHALLENGED
+2017-01-15 13:58:38 DEBUG MainClientExec:266 - Proxy auth state: UNCHALLENGED
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "POST /wd/hub/session HTTP/1.1[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Content-Type: application/json; charset=utf-8[\r][\n]"
+2017-01-15 13:58:38 DEBUG headers:135 - http-outgoing-0 >> POST /wd/hub/session HTTP/1.1
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Content-Type: application/json; charset=utf-8
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Content-Length: 350
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Host: 127.0.0.1:18286
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Connection: Keep-Alive
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)
+2017-01-15 13:58:38 DEBUG headers:138 - http-outgoing-0 >> Accept-Encoding: gzip,deflate
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "POST /wd/hub/session HTTP/1.1[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Content-Type: application/json; charset=utf-8[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Content-Length: 350[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Host: 127.0.0.1:18286[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:86 - http-outgoing-0 >> "{"desiredCapabilities":{"app":"/Users/sukeshkumar/Development/projects/optimusTemplate/app/hellooptimus.apk","appActivity":"com.testvagrant.hellooptimus.MainActivity","appPackage":"com.testvagrant.hellooptimus","avdLaunchTimeout":300000,"udid":"emulator-5554","platformName":"Android","deviceName":"Android SDK built for x86_64","useKeystore":false}}"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Content-Length: 350[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Host: 127.0.0.1:12239[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:72 - http-outgoing-0 >> "[\r][\n]"
+2017-01-15 13:58:38 DEBUG wire:86 - http-outgoing-0 >> "{"desiredCapabilities":{"app":"/Users/sukeshkumar/Development/projects/optimusTemplate/app/hellooptimus.apk","appActivity":"com.testvagrant.hellooptimus.MainActivity","appPackage":"com.testvagrant.hellooptimus","avdLaunchTimeout":300000,"udid":"emulator-5554","platformName":"Android","deviceName":"Android SDK built for x86_64","useKeystore":false}}"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "X-Powered-By: Express[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Origin: *[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Headers: origin, content-type, accept[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Vary: X-HTTP-Method-Override[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Content-Type: application/json; charset=utf-8[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Content-Length: 967[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "ETag: W/"3c7-4soiT+4k+pxl35ntYzGQ4w"[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Date: Sun, 15 Jan 2017 08:28:55 GMT[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "Connection: keep-alive[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:72 - http-outgoing-0 << "[\r][\n]"
+2017-01-15 13:58:55 DEBUG wire:86 - http-outgoing-0 << "{"status":0,"value":{"platform":"LINUX","webStorageEnabled":false,"takesScreenshot":true,"javascriptEnabled":true,"databaseEnabled":false,"networkConnectionEnabled":true,"locationContextEnabled":false,"warnings":{},"desired":{"app":"/Users/sukeshkumar/Development/projects/optimusTemplate/app/hellooptimus.apk","appActivity":"com.testvagrant.hellooptimus.MainActivity","appPackage":"com.testvagrant.hellooptimus","avdLaunchTimeout":300000,"udid":"emulator-5554","platformName":"Android","deviceName":"Android SDK built for x86_64","useKeystore":false},"app":"/Users/sukeshkumar/Development/projects/optimusTemplate/app/hellooptimus.apk","appActivity":"com.testvagrant.hellooptimus.MainActivity","appPackage":"com.testvagrant.hellooptimus","avdLaunchTimeout":300000,"udid":"emulator-5554","platformName":"Android","deviceName":"emulator-5554","useKeystore":false,"deviceUDID":"emulator-5554","platformVersion":"7.0"},"sessionId":"57c880ab-fba9-44cc-927e-ac11e1b7cc61"}"
+2017-01-15 13:58:55 DEBUG headers:124 - http-outgoing-0 << HTTP/1.1 200 OK
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << X-Powered-By: Express
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Origin: *
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Headers: origin, content-type, accept
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Vary: X-HTTP-Method-Override
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Content-Type: application/json; charset=utf-8
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Content-Length: 967
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << ETag: W/"3c7-4soiT+4k+pxl35ntYzGQ4w"
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Date: Sun, 15 Jan 2017 08:28:55 GMT
+2017-01-15 13:58:55 DEBUG headers:127 - http-outgoing-0 << Connection: keep-alive
+2017-01-15 13:58:55 DEBUG MainClientExec:284 - Connection can be kept alive indefinitely
+2017-01-15 13:58:55 DEBUG PoolingHttpClientConnectionManager:314 - Connection [id: 0][route: {}->http://127.0.0.1:18286] can be kept alive indefinitely
+2017-01-15 13:58:55 DEBUG PoolingHttpClientConnectionManager:320 - Connection released: [id: 0][route: {}->http://127.0.0.1:18286][total kept alive: 1; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:58:58 DEBUG RequestAddCookies:122 - CookieSpec selected: default
+2017-01-15 13:58:58 DEBUG RequestAuthCache:76 - Auth cache not set in the context
+2017-01-15 13:58:58 DEBUG PoolingHttpClientConnectionManager:249 - Connection request: [route: {}->http://127.0.0.1:18286][total kept alive: 1; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:58:58 DEBUG wire:86 - http-outgoing-0 << "[read] I/O error: Read timed out"
+2017-01-15 13:58:58 DEBUG PoolingHttpClientConnectionManager:282 - Connection leased: [id: 0][route: {}->http://127.0.0.1:18286][total kept alive: 0; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:58:58 DEBUG MainClientExec:207 - Stale connection check
+2017-01-15 13:58:58 DEBUG wire:86 - http-outgoing-0 << "[read] I/O error: Read timed out"
+2017-01-15 13:58:58 DEBUG DefaultManagedHttpClientConnection:90 - http-outgoing-0: set socket timeout to 10800000
+2017-01-15 13:58:58 DEBUG MainClientExec:255 - Executing request DELETE /wd/hub/session/57c880ab-fba9-44cc-927e-ac11e1b7cc61 HTTP/1.1
+2017-01-15 13:58:58 DEBUG MainClientExec:260 - Target auth state: UNCHALLENGED
+2017-01-15 13:58:58 DEBUG MainClientExec:266 - Proxy auth state: UNCHALLENGED
+2017-01-15 13:58:58 DEBUG headers:135 - http-outgoing-0 >> DELETE /wd/hub/session/57c880ab-fba9-44cc-927e-ac11e1b7cc61 HTTP/1.1
+2017-01-15 13:58:58 DEBUG headers:138 - http-outgoing-0 >> Host: 127.0.0.1:18286
+2017-01-15 13:58:58 DEBUG headers:138 - http-outgoing-0 >> Connection: Keep-Alive
+2017-01-15 13:58:58 DEBUG headers:138 - http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)
+2017-01-15 13:58:58 DEBUG headers:138 - http-outgoing-0 >> Accept-Encoding: gzip,deflate
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "DELETE /wd/hub/session/57c880ab-fba9-44cc-927e-ac11e1b7cc61 HTTP/1.1[\r][\n]"
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "Host: 127.0.0.1:18286[\r][\n]"
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_92)[\r][\n]"
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+2017-01-15 13:58:58 DEBUG wire:72 - http-outgoing-0 >> "[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "X-Powered-By: Express[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Origin: *[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Access-Control-Allow-Headers: origin, content-type, accept[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Content-Type: application/json; charset=utf-8[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Content-Length: 76[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "ETag: W/"4c-qyEOWqn/aR8dS4t9EPPkHg"[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Date: Sun, 15 Jan 2017 08:29:02 GMT[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "Connection: keep-alive[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:72 - http-outgoing-0 << "[\r][\n]"
+2017-01-15 13:59:02 DEBUG wire:86 - http-outgoing-0 << "{"status":0,"value":null,"sessionId":"57c880ab-fba9-44cc-927e-ac11e1b7cc61"}"
+2017-01-15 13:59:02 DEBUG headers:124 - http-outgoing-0 << HTTP/1.1 200 OK
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << X-Powered-By: Express
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Origin: *
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Access-Control-Allow-Headers: origin, content-type, accept
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Content-Type: application/json; charset=utf-8
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Content-Length: 76
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << ETag: W/"4c-qyEOWqn/aR8dS4t9EPPkHg"
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Date: Sun, 15 Jan 2017 08:29:02 GMT
+2017-01-15 13:59:02 DEBUG headers:127 - http-outgoing-0 << Connection: keep-alive
+2017-01-15 13:59:02 DEBUG MainClientExec:284 - Connection can be kept alive indefinitely
+2017-01-15 13:59:02 DEBUG PoolingHttpClientConnectionManager:314 - Connection [id: 0][route: {}->http://127.0.0.1:18286] can be kept alive indefinitely
+2017-01-15 13:59:02 DEBUG PoolingHttpClientConnectionManager:320 - Connection released: [id: 0][route: {}->http://127.0.0.1:18286][total kept alive: 1; route allocated: 1 of 2000; total allocated: 1 of 2000]
+2017-01-15 13:59:02 DEBUG PoolingHttpClientConnectionManager:401 - Closing connections idle longer than 0 SECONDS
+2017-01-15 13:59:02 DEBUG DefaultManagedHttpClientConnection:81 - http-outgoing-0: Close connection
