@@ -137,7 +137,7 @@ def runFunctionalDistribution(List<String> udidList, File[] allFiles) {
         allFiles.eachParallel { File file ->
             javaexec {
                 main = "cucumber.api.cli.Main"
-                org.gradle.jvm.Classpath = sourceSets.test.runtimeClasspath
+                classpath = sourceSets.test.runtimeClasspath
                 args = ["-p", "pretty", "-p", ("json:${Reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
                         file.toPath()]
                 systemProperties = [
