@@ -9,7 +9,7 @@ Before you get your hands on Optimus Template, please make sure your system meet
 ##Getting started with Optimus Template
 You can either fork Optimus Template repository or download the bundle from [here](//set link here).
 
-If you have forked Optimus Template, you can clone it onto your machine using
+If you have forked Optimus Template, you can clone from your fork to your machine using
 
 ```bash
 git clone <Enter git clone link here>
@@ -48,7 +48,6 @@ optimustemplate/
     ¦   ¦  +-- singleApp.feature
     +-- interApp.json
     +-- singleApp.json
-    +-- tagFile.properties
 ```
 
 The template comes with few pre-defined classes. You can harness
@@ -158,12 +157,12 @@ gradle runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
  or
  
 ```bash
-gradle runInParallel -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+gradle runDistribution -DtestFeed="helloOptimus" -Dtags=@helloOptimus
 ```
  
 After all the initial setup process you will be able to see `optimushello` app appear on your emulator screen
 
-![](docs/HelloOptimus.png)
+![](docs/HelloOptimus1.png)
 
 Kudos for your first successful test with Optimus. Now that you have reached here, let us understand the basic features and building blocks of Optimus.
 
@@ -172,7 +171,7 @@ Kudos for your first successful test with Optimus. Now that you have reached her
 With Optimus, you will be able to write tests capable of running in below modes without ever having to worry about managing servers or device setup.
 
     * Distributed Mode
-    * Parallel Mode
+    * Fragmentation Mode
 
 If this might sound obvious like any other framework, with Optimus you will be able to test
 
