@@ -23,8 +23,8 @@ public class StartingSteps extends BaseSteps {
     public void setUp(Scenario scenario) throws Exception {
         String testFeed = System.getProperty("testFeed") + ".json";
         System.out.println("file name -- " + testFeed);
-        controller = new OptimusController(getAppJson(testFeed));
-        smartBOTs = controller.registerSmartBOTs(getUniqueScenarioName(scenario));
+        controller = new OptimusController(getAppJson(testFeed),getUniqueScenarioName(scenario));
+        smartBOTs = controller.registerSmartBOTs();
         optimus = new OptimusImpl(having(smartBOTs));
     }
 
