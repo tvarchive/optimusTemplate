@@ -245,6 +245,6 @@ All these capabilities are boolean flags which by themselves are self-descriptiv
     * IOS - Simulators and Devices
 
 With this fair amount of idea, you are now all set to start your Automation Journey with Optimus. If you have any specific queries reach 
-out to us at info@testvagrant.com
+out to us at optimus@testvagrant.com
 
 
