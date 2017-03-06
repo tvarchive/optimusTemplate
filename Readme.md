@@ -152,6 +152,19 @@ Open your terminal and navigate to your project folder
 and try below command.
 
 ```bash
+./gradlew runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+```
+
+or
+
+```bash
+./gradlew runDistribution -DtestFeed="helloOptimus" -Dtags=@helloOptimus
+
+```
+
+In case you have a gradle distribution on local you can run below commands
+
+```bash
 gradle runFragmentation -DtestFeed="helloOptimus" -Dtags=@helloOptimus
 ```
  or
