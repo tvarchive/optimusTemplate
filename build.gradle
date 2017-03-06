@@ -61,7 +61,7 @@ dependencies {
 
 
 
-task optimusSetup(type: JavaExec, dependsOn: ['startRedisServer','classes']) {
+task optimusSetup(type: JavaExec, dependsOn: ['startRedisServer', 'classes']) {
     main = 'com.testvagrant.optimus.OptimusMain'
     classpath = sourceSets.test.runtimeClasspath
 }
@@ -114,9 +114,6 @@ def runDeviceFragmentation(List<String> udidList) {
 }
 
 
-
-
-
 task runDistribution(dependsOn: ['optimusSetup', 'clean', 'featureCollector']) {
     featureCollector.outputs.upToDateWhen { false }
     doLast {
@@ -143,7 +140,7 @@ def runFunctionalDistribution(List<String> udidList, File[] allFiles) {
             javaexec {
                 main = "cucumber.api.cli.Main"
                 classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
+                args = ["-p", "pretty", "-p", ("json:${Reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
                         file.toPath()]
                 systemProperties = [
                         "testFeed": System.getProperty("testFeed"),
@@ -207,14 +204,14 @@ runFragmentation.finalizedBy(reportFragmentation)
 
 def RedisServer redisServer;
 task startRedisServer() {
-    doLast{
+    doLast {
         redisServer = new RedisServer();
         redisServer.start();
     }
 }
 
 def killRedisServer() {
-    doLast{
+    doLast {
         redisServer.stop();
     }
 }

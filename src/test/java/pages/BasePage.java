@@ -20,7 +20,7 @@ public class BasePage {
     @FindBy(xpath = "//android.widget.ImageButton[@content-desc = 'Navigate up']")
     protected WebElement backButton;
 
-    public BasePage(AppiumDriver driver) throws Exception {
+    public BasePage(AppiumDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(this.driver, 30);
     }
@@ -328,12 +328,6 @@ public class BasePage {
         TouchAction act = new TouchAction(driver);
         System.out.print(xAxisStartPoint + " " + yAxis);
         act.longPress(xAxisStartPoint, yAxis).moveTo(xAxisEndPoint - 1, yAxis).release().perform();
-    }
-
-    protected Integer getPriceFormat(String price) {
-        String b = price.replaceAll("Rp. ", "").replaceAll("\\.", "").replaceAll("-", "").replaceAll(",", "");
-        System.out.println("inside the format function" + b);
-        return Integer.parseInt(b);
     }
 
     public void navigateBack() {
