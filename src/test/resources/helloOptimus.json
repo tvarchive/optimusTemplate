@@ -20,12 +20,6 @@
           "avdLaunchTimeout": 300000,
           "useKeystore": false
         }
-      },
-      "deviceState": {
-        "clearNotification": false,
-        "clearADBLogs": false,
-        "grantAllPermissions": false,
-        "captureVideo": false
       }
     }
   ]

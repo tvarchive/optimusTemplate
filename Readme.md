@@ -242,17 +242,6 @@ Optimus supports all android related capabilities as specified [here](https://gi
 Optimus does not enforce any of these capabilities to be set for running your tests.
 However you are free to provide as many capabilities as you may need.
 
-#### Device State
-Optimus while being extremely faithful to Appium in terms of capabilities,
-it does provide few handy capabilities out of box which resolves many dire issues of mobile automation.
-
-    * Clear Notification
-    * Clear ADB logs
-    * Grant All Permissions
-    * Capture Video
-
-All these capabilities are boolean flags which by themselves are self-descriptive.
-
 #### Supported Platforms
     * Android - SDK Emulators, Genymotion Emulators and all devices
     * IOS - Simulators and Devices
