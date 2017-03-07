@@ -61,7 +61,7 @@ dependencies {
 
 
 
-task optimusSetup(type: JavaExec, dependsOn: ['startRedisServer', 'classes']) {
+task optimusSetup(type: JavaExec, dependsOn: ['killRedisServer', 'startRedisServer', 'classes']) {
     main = 'com.testvagrant.optimus.OptimusMain'
     classpath = sourceSets.test.runtimeClasspath
 }
@@ -80,7 +80,6 @@ task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
         List<String> udidList = getDevicesForThisTestRun()
         println udidList
         runDeviceFragmentation(udidList)
-        killRedisServer()
     }
 }
 
@@ -125,7 +124,6 @@ task runDistribution(dependsOn: ['optimusSetup', 'clean', 'featureCollector']) {
         println "Runnable Features are available in this path -- " + list.get(0).getAbsolutePath();
         File file = list.get(0);
         runFunctionalDistribution(udidList, file.listFiles())
-        killRedisServer
     }
 }
 
@@ -198,10 +196,6 @@ def generateReport(Boolean isFragmentation) {
 
 }
 
-
-runDistribution.finalizedBy(reportDistribution)
-runFragmentation.finalizedBy(reportFragmentation)
-
 def RedisServer redisServer;
 task startRedisServer() {
     doLast {
@@ -210,10 +204,16 @@ task startRedisServer() {
     }
 }
 
-def killRedisServer() {
+task killRedisServer() {
     doLast {
-        redisServer.stop();
+        "redis-cli shutdown".execute()
     }
 }
+
+
+
+
+runDistribution.finalizedBy(reportDistribution)
+runFragmentation.finalizedBy(reportFragmentation)
 
 
