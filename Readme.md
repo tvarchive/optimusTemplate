@@ -200,8 +200,8 @@ giving you complete control of your tests execution. Any Test Feed will contain 
 
     * Common Attributes
     * Appium Server Capabilities
-    * Android Only Capabilities
-    * Device State
+    * Android or iOS Only Capabilities
+
 
 #### Common Attributes
 These attributes are set across all tests running on a common test feed.
