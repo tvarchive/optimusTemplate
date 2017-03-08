@@ -138,7 +138,7 @@ def runFunctionalDistribution(List<String> udidList, File[] allFiles) {
             javaexec {
                 main = "cucumber.api.cli.Main"
                 classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${Reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
+                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
                         file.toPath()]
                 systemProperties = [
                         "testFeed": System.getProperty("testFeed"),
