@@ -27,6 +27,7 @@
         "grantAllPermissions": true,
         "captureVideo": true
       }
+
     }
   ]
 }
