@@ -60,7 +60,7 @@ the power of Optimus through them.
     <b>StartingSteps.java</b>: For Optimus Template use only.
    </pre>
 
-###Your First Test
+### Your First Test
 Writing tests in Optimus is no different than the tests you write everyday,
 except that it does most of the heavy lifting, helping you to focus entirely on the test, 
 thus the philosophy of Optimus
@@ -180,7 +180,7 @@ After all the initial setup process you will be able to see `optimushello` app a
 Kudos for your first successful test with Optimus. Now that you have reached here, let us understand the basic features and building blocks of Optimus.
 
 
-##Features
+## Features
 With Optimus, you will be able to write tests capable of running in below modes without ever having to worry about managing servers or device setup.
 
     * Distributed Mode
@@ -213,7 +213,7 @@ These attributes are set across all tests running on a common test feed.
         <b>Application Directory</b>: Specifies the folder name where the application under test is placed.
        </pre>
 
-#####Example
+##### Example
 
 ![](docs/CommonAttributes.png)
 
@@ -230,7 +230,7 @@ all it needs are a couple of capabilities.
    <b>Platform Name</b>: Specifies the platform to run the application on.
    </pre>
 
-#####Example 
+##### Example
 ![](docs/AppiumServerCapabilities.png)
 
 These capabilities will be sufficient enough to run most of the tests if not all.
