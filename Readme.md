@@ -6,7 +6,7 @@ to get started with your tests in the swiftest time possible.
 Before you get your hands on Optimus Template, please make sure your system meets the desired
 [prerequisites](Prerequisites.md)
 
-##Getting started with Optimus Template
+## Getting started with Optimus Template
 You can either fork Optimus Template repository or download the bundle from [here](//set link here).
 
 If you have forked Optimus Template, you can clone from your fork to your machine using
