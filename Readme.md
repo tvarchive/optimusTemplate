@@ -1,8 +1,8 @@
-#Optimus Template  [ ![Download](https://api.bintray.com/packages/krisnanandb/optimus/optimus-template/images/download.svg) ](https://bintray.com/krisnanandb/optimus/optimus-template/_latestVersion)
+# Optimus Template  [ ![Download](https://api.bintray.com/packages/krisnanandb/optimus/optimus-template/images/download.svg) ](https://bintray.com/krisnanandb/optimus/optimus-template/_latestVersion)
 Optimus Template is the native framework for Optimus, designed to help you
 to get started with your tests in the swiftest time possible.
 
-####First things first
+#### First things first
 Before you get your hands on Optimus Template, please make sure your system meets the desired
 [prerequisites](Prerequisites.md)
 
