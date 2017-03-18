@@ -52,7 +52,7 @@ dependencies {
     compile 'cglib:cglib:3.2.4'
     compile 'com.testvagrant:optimus:1.+'
     compile group: 'com.github.kstyrc', name: 'embedded-redis', version: '0.6'
-
+    compile files('libs/optimusRadiator-all-1.0-SNAPSHOT.jar')
 
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')

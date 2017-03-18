@@ -1,0 +1,22 @@
+2017-03-10T14:57:42.282129000 40.057011s notice: Recursively removing directory /Users/sukeshkumar/Development/projects/optimusTemplate/rethinkdb_data/tmp
+2017-03-10T14:57:42.284496000 40.059379s notice: Initializing directory /Users/sukeshkumar/Development/projects/optimusTemplate/rethinkdb_data
+2017-03-10T14:57:42.284587000 40.059466s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/sukeshkumar/Development/projects/optimusTemplate/rethinkdb_data' did not already exist or is empty.)
+2017-03-10T14:57:42.284612000 40.059491s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2017-03-10T14:57:42.290498000 40.065388s notice: Running on Darwin 16.4.0 x86_64
+2017-03-10T14:57:42.290565000 40.065444s notice: Loading data from directory /Users/sukeshkumar/Development/projects/optimusTemplate/rethinkdb_data
+2017-03-10T14:57:42.406489000 40.181369s info: Automatically using cache size of 100 MB
+2017-03-10T14:57:42.406496000 40.181375s warn: Cache size does not leave much memory for server and query overhead (available memory: 952 MB).
+2017-03-10T14:57:42.406499000 40.181379s warn: Cache size is very low and may impact performance.
+2017-03-10T14:57:42.407049000 40.181929s notice: Listening for intracluster connections on port 29015
+2017-03-10T14:57:42.409236000 40.184115s notice: Listening for client driver connections on port 28015
+2017-03-10T14:57:42.409336000 40.184215s notice: Listening for administrative HTTP connections on port 8080
+2017-03-10T14:57:42.409338000 40.184217s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-03-10T14:57:42.409343000 40.184222s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-03-10T14:57:42.409344000 40.184223s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-03-10T14:57:42.409347000 40.184226s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-03-10T14:57:42.409351000 40.184230s notice: Server ready, "Sukeshs_MacBook_Pro_local_pkt" d0f09962-e4d8-4901-909c-1d6bbac74844
+2017-03-10T15:11:04.640015000 842.390077s notice: Server got SIGINT from pid 12341, uid 501; shutting down...
+2017-03-10T15:11:04.640251000 842.390314s notice: Shutting down client connections...
+2017-03-10T15:11:04.640380000 842.390442s notice: All client connections closed.
+2017-03-10T15:11:04.640385000 842.390447s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-03-10T15:11:04.644740000 842.394802s notice: Storage engine shut down.
