@@ -30,7 +30,7 @@ buildscript {
         classpath "org.codehaus.gpars:gpars:1.2.1"
         classpath "net.masterthought:cucumber-reporting:3.3.0"
         classpath "gradle.plugin.com.testvagrant.featureCollector:FeatureCollector:1.1.1"
-        classpath "com.testvagrant:optimus:1.3.5"
+        classpath "com.testvagrant:optimus:1.+"
         classpath "com.github.kstyrc:embedded-redis:0.6"
     }
 
