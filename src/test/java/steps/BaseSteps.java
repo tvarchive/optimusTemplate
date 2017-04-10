@@ -1,7 +1,7 @@
 package steps;
 
+import com.testvagrant.commons.entities.SmartBOT;
 import com.testvagrant.optimus.device.OptimusController;
-import com.testvagrant.optimus.entity.SmartBOT;
 import io.appium.java_client.AppiumDriver;
 import utils.OptimusImpl;
 

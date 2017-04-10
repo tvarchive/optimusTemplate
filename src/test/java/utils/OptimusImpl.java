@@ -1,6 +1,6 @@
 package utils;
 
-import com.testvagrant.optimus.entity.SmartBOT;
+import com.testvagrant.commons.entities.SmartBOT;
 import com.testvagrant.optimus.utils.ScreenShotGenerator;
 
 import java.io.IOException;
