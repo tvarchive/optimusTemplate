@@ -3,15 +3,16 @@ package pages;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
-public class BookingPage extends BasePage {
+public class ExamplePage extends BasePage {
     private AppiumDriver driver;
 
-    public BookingPage(AppiumDriver driver) {
+    public ExamplePage(AppiumDriver driver) {
         super(driver);
         this.driver = driver;
     }
 
-    public void bookARide() {
-        //code to book a ride
+    public ExamplePage doSomething() {
+        return this;
     }
+
 }

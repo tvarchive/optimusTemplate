@@ -5,19 +5,18 @@
   },
   "testFeed": [
     {
-      "belongsTo": "rider",
-      "runsOn": "emulator",
+      "nativeApp": true,
+      "belongsTo": "optimus",
+      "runsOn": "any",
       "appDir": "app",
       "optimusDesiredCapabilities": {
         "appiumServerCapabilities": {
-          "app": "app-staging-release.apk",
-          "platformName": "Android",
-          "udid": "123",
-          "newCommandTimeout": 180
+          "app": "Your App APK",
+          "platformName": "Android"
         },
         "androidOnlyCapabilities": {
-          "appActivity": "com.gojek.app.Splash",
-          "appPackage": "com.gojek.app.staging",
+          "appActivity": "Your App Activity",
+          "appPackage": "Your App Package",
           "avdLaunchTimeout": 300000,
           "useKeystore": false
         }
@@ -28,6 +27,7 @@
         "grantAllPermissions": true,
         "captureVideo": true
       }
+
     }
   ]
 }
