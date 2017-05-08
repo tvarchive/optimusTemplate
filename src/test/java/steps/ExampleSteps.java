@@ -9,8 +9,8 @@ import org.openqa.selenium.WebDriver;
 import pages.ExamplePage;
 
 public class ExampleSteps extends BaseSteps{
-    @Given("^I have optimus hello application$")
-    public void iHaveOptimusHelloApplication() throws Throwable {
+    @Given("^I have an example application$")
+    public void iHaveAnExampleApplication() throws Throwable {
        AppiumDriver driver =  getDriverInstanceFor("optimus");
         ExamplePage examplePage = new ExamplePage(driver).doSomething();
     }

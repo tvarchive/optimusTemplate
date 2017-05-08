@@ -29,7 +29,12 @@ To create a new Optimus project.
 $ optimus ⏎
 optimus$ create project <project_name>
 ```
-Once the project is created you can import it to your favourite IDE.
+Once the project is created you can import the project into your favourite IDE. However we love [IntelliJ](https://github.com/testvagrant/optimusTemplate/wiki/Import-Optimus-Project---Intellij) though. 
+
+### Import Project
+* [IntelliJ](https://github.com/testvagrant/optimusTemplate/wiki/Import-Optimus-Project---Intellij)
+* [Eclipse]()
+
 
 ### First test
 Write your first test by following our [tutorial](https://github.com/testvagrant/optimusTemplate/wiki/My-First-Test).
