@@ -4,7 +4,7 @@ Optimus Template is the native framework for Optimus, designed to help you
 to get started with your tests in the swiftest time possible. Read more about Optimus on our [wiki](https://github.com/testvagrant/optimusTemplate/wiki).
 
 ### Pre-requisites
-* [HomeBrew](https://brew.sh/), [XCode 8.2](https://developer.apple.com/xcode/) - Mac
+* [HomeBrew](https://brew.sh/), [XCode 8.2 or above](https://developer.apple.com/xcode/) - Mac
 * [LinuxBrew](http://linuxbrew.sh/) - Linux
 * [Chocolatey](https://chocolatey.org/) - Windows
 
