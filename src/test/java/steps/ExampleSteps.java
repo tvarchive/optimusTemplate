@@ -14,6 +14,4 @@ public class ExampleSteps extends BaseSteps{
        AppiumDriver driver =  getDriverInstanceFor("optimus");
         ExamplePage examplePage = new ExamplePage(driver).doSomething();
     }
-
-
 }
