@@ -3,31 +3,27 @@
     "appium_js_path": "/usr/local/bin/appium",
     "appium_node_path": "/usr/local/bin/node"
   },
-  "testFeed": [
+  "testFeed":[
     {
-      "nativeApp": true,
-      "belongsTo": "optimus",
-      "runsOn": "any",
+      "belongsTo":"optimus",
+      "runsOn": "emulator",
       "appDir": "app",
+      "nativeApp":true,
       "optimusDesiredCapabilities": {
         "appiumServerCapabilities": {
-          "app": "Your App APK",
+          "app": "hellooptimus.apk",
           "platformName": "Android"
         },
         "androidOnlyCapabilities": {
-          "appActivity": "Your App Activity",
-          "appPackage": "Your App Package",
+          "appActivity": "com.testvagrant.hellooptimus.MainActivity",
+          "appPackage": "com.testvagrant.hellooptimus",
           "avdLaunchTimeout": 300000,
           "useKeystore": false
         }
       },
       "deviceState": {
-        "clearNotification": true,
-        "clearADBLogs": true,
-        "grantAllPermissions": true,
         "captureVideo": true
       }
-
     }
   ]
 }

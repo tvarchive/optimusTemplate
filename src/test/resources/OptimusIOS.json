@@ -1,0 +1,29 @@
+{
+  "executionDetails": {
+    "appium_js_path": "/usr/local/bin/appium",
+    "appium_node_path": "/usr/local/bin/node"
+  },
+  "testFeed": [
+    {
+      "belongsTo": "optimus",
+      "runsOn": "simulator",
+      "appDir": "app",
+      "nativeApp":true,
+      "optimusDesiredCapabilities": {
+        "appiumServerCapabilities": {
+          "app": "HelloOptimus.app",
+          "platformName": "iOS",
+          "deviceName":"iPhone 6",
+          "platformVersion": "9.3",
+          "automationName": "XCUITest"
+        },
+        "iOSOnlyCapabilities": {
+          "launchTimeout": 300000
+        }
+      },
+      "deviceState":{
+        "captureVideo":true
+      }
+    }
+  ]
+}
