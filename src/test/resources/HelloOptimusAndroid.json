@@ -6,7 +6,7 @@
   "testFeed":[
     {
       "belongsTo":"optimus",
-      "runsOn": "emulator",
+      "runsOn": "any",
       "appDir": "app",
       "nativeApp":true,
       "optimusDesiredCapabilities": {
