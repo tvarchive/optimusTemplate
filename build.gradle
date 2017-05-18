@@ -1,22 +1,16 @@
-import com.testvagrant.optimus.helpers.DeviceHelper
-import groovyx.gpars.GParsPool
-import net.masterthought.cucumber.ReportBuilder
-import net.masterthought.cucumber.Configuration
-import redis.embedded.RedisServer
-
-import java.text.DateFormat
-
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: "com.testvagrant.featureCollector.plugin"
-
-featureTags {
-    println System.getProperty("tags")
+apply plugin: "com.testvagrant.optimus.plugin"
+/*
+  IMPORTANT: Optimus extension is required to run optimus plugin.
+ */
+optimus {
+    testFeed = System.getProperty("testFeed");
     tags = System.getProperty("tags");
+    classpath = sourceSets.test.runtimeClasspath
 }
-
 buildscript {
 
     repositories {
@@ -29,7 +23,7 @@ buildscript {
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1"
         classpath "net.masterthought:cucumber-reporting:3.3.0"
-        classpath "gradle.plugin.com.testvagrant.featureCollector:FeatureCollector:1.1.1"
+        classpath "gradle.plugin.com.testvagrant.optimus:Optimus:1.0.0"
         classpath "com.testvagrant:optimus:1.+"
         classpath "com.github.kstyrc:embedded-redis:0.6"
     }
@@ -61,159 +55,6 @@ dependencies {
 
 
 
-task optimusSetup(type: JavaExec, dependsOn: ['killRedisServer', 'startRedisServer', 'classes']) {
-    main = 'com.testvagrant.optimus.OptimusMain'
-    classpath = sourceSets.test.runtimeClasspath
-}
 
-def String getAppJson(String fileName) {
-    def file = new File('src/test/resources/' + fileName)
-    if (file.exists()) {
-        return file.text
-    }
-    return ''
-}
-
-
-task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
-    doLast {
-        List<String> udidList = getDevicesForThisTestRun()
-        println udidList
-        runDeviceFragmentation(udidList)
-    }
-}
-
-private String updateReportFileName(String name) {
-    String[] deviceIdString = name.split(":");
-    return deviceIdString.length > 1 ? "emulator_" + deviceIdString[0].substring(deviceIdString[0].lastIndexOf(".") + 1) : name;
-}
-
-
-def runDeviceFragmentation(List<String> udidList) {
-    def size = udidList.size()
-    println "Total devices -- " + size
-    GParsPool.withPool(size) {
-        udidList.eachParallel { String udid ->
-
-            javaexec {
-                main = "cucumber.api.cli.Main"
-                classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/" + updateReportFileName(udid) + ".json"), "--glue", "steps", "-t", System.getProperty("tags"),
-                        "${project.projectDir}/src/test/resources/features"]
-                systemProperties = [
-                        "testFeed": System.getProperty("testFeed"),
-                        "udid"    : udid,
-                        "runMode" : "Fragmentation"
-                ]
-            }
-            println("Scenario output: ${reporting.baseDir}/cucumber/${udid}.log ")
-        }
-    }
-
-}
-
-
-task runDistribution(dependsOn: ['optimusSetup', 'clean', 'featureCollector']) {
-    featureCollector.outputs.upToDateWhen { false }
-    doLast {
-        List<String> udidList = getDevicesForThisTestRun()
-
-        def fileDirectory = tasks.featureCollector.outputs;
-        FileCollection fileCollection = fileDirectory.getFiles();
-        List<File> list = fileCollection.asList();
-        println "Runnable Features are available in this path -- " + list.get(0).getAbsolutePath();
-        File file = list.get(0);
-        runFunctionalDistribution(udidList, file.listFiles())
-    }
-}
-
-
-def runFunctionalDistribution(List<String> udidList, File[] allFiles) {
-
-    def size = udidList.size()
-    println "pool size -- " + size
-
-    GParsPool.withPool(size) {
-        allFiles.eachParallel { File file ->
-            javaexec {
-                main = "cucumber.api.cli.Main"
-                classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
-                        file.toPath()]
-                systemProperties = [
-                        "testFeed": System.getProperty("testFeed"),
-                        "runMode" : "Distribution"
-                ]
-            }
-            println("Scenario output: ${reporting.baseDir}/cucumber/${file.name}.log ")
-        }
-    }
-
-}
-
-
-private List<String> getDevicesForThisTestRun() {
-    new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria()
-}
-
-task reportDistribution() {
-    doLast {
-        generateReport(false)
-    }
-}
-
-
-task reportFragmentation() {
-    doLast {
-        generateReport(true)
-    }
-}
-
-def generateReport(Boolean isFragmentation) {
-    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
-    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
-
-    List<String> jsonReportFiles = new ArrayList<String>();
-    jsonReports.each { File file ->
-        jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
-    }
-
-    String buildNumber = DateFormat.instance.format(new Date())
-    String projectName = "cucumberProject";
-    boolean runWithJenkins = false;
-    boolean parallelTesting = isFragmentation;
-
-    Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-//optional configuration
-    configuration.setParallelTesting(parallelTesting);
-    configuration.setRunWithJenkins(runWithJenkins);
-    configuration.setBuildNumber(buildNumber);
-
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
-    reportBuilder.generateReports();
-
-    println("\nReport available on: ${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html")
-
-}
-
-def RedisServer redisServer;
-task startRedisServer() {
-    doLast {
-        redisServer = new RedisServer();
-        redisServer.start();
-    }
-}
-
-task killRedisServer() {
-    doLast {
-        "redis-cli shutdown".execute()
-    }
-}
-
-
-
-
-runDistribution.finalizedBy(reportDistribution)
-runFragmentation.finalizedBy(reportFragmentation)
 
 
