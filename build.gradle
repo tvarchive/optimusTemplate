@@ -23,7 +23,7 @@ buildscript {
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1"
         classpath "net.masterthought:cucumber-reporting:3.3.0"
-        classpath "gradle.plugin.com.testvagrant.optimus:Optimus:1.0.0"
+        classpath "gradle.plugin.com.testvagrant.optimus:Optimus:1.0.1"
         classpath "com.testvagrant:optimus:1.+"
         classpath "com.github.kstyrc:embedded-redis:0.6"
     }
