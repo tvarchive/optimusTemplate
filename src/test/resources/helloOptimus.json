@@ -3,12 +3,12 @@
     "appium_js_path": "/usr/local/bin/appium",
     "appium_node_path": "/usr/local/bin/node"
   },
-  "testFeed": [
+  "testFeed":[
     {
-      "nativeApp": true,
-      "belongsTo": "optimus",
+      "belongsTo":"optimus",
       "runsOn": "any",
       "appDir": "app",
+      "nativeApp":true,
       "optimusDesiredCapabilities": {
         "appiumServerCapabilities": {
           "app": "hellooptimus.apk",
@@ -22,12 +22,8 @@
         }
       },
       "deviceState": {
-        "clearNotification": true,
-        "clearADBLogs": true,
-        "grantAllPermissions": true,
         "captureVideo": true
       }
-
     }
   ]
 }

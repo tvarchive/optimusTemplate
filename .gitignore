@@ -7,3 +7,5 @@ dump.rdb
 
 
 
+radiator_app/src/
+rethinkdb_data/tmp/

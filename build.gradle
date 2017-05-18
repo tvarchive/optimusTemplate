@@ -71,14 +71,14 @@ dependencies {
 
 
 
-task optimusSetup(type: JavaExec, dependsOn: ['rethinkSetup','killRedisServer', 'startRedisServer', 'classes']) {
+task optimusSetup(type: JavaExec, dependsOn: ['mongoSetup', 'classes']) {
     main = 'com.testvagrant.optimus.OptimusMain'
     classpath = sourceSets.test.runtimeClasspath
 }
 
 
-task rethinkSetup(type: JavaExec, dependsOn: 'classes') {
-    main = 'com.testvagrant.monitor.RethinkMain'
+task mongoSetup(type: JavaExec, dependsOn: 'classes') {
+    main = 'com.testvagrant.monitor.MongoMain'
     classpath = sourceSets.test.runtimeClasspath
 }
 
@@ -91,7 +91,14 @@ def String getAppJson(String fileName) {
 }
 
 
-task runFragmentation(dependsOn: ['optimusSetup', 'rethinkSetup', 'classes']) {
+task optimusTeardown(type: JavaExec) {
+    main = 'com.testvagrant.optimus.ReportMain'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+
+
+task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
     doLast {
         List<String> udidList = getDevicesForThisTestRun()
         println udidList
@@ -129,7 +136,7 @@ def runDeviceFragmentation(List<String> udidList) {
 }
 
 
-task runDistribution(dependsOn: ['optimusSetup', 'rethinkSetup', 'clean', 'featureCollector']) {
+task runDistribution(dependsOn: ['optimusSetup', 'clean', 'featureCollector']) {
     featureCollector.outputs.upToDateWhen { false }
     doLast {
         List<String> udidList = getDevicesForThisTestRun()
@@ -228,7 +235,7 @@ task killRedisServer() {
 
 
 
-
+runDistribution.finalizedBy(optimusTeardown)
 runDistribution.finalizedBy(reportDistribution)
 runFragmentation.finalizedBy(reportFragmentation)
 

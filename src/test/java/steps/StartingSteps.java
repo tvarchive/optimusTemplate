@@ -20,15 +20,13 @@ public class StartingSteps extends BaseSteps {
     @Before
     public void setUp(Scenario scenario) throws Exception {
         String testFeed = System.getProperty("testFeed") + ".json";
-        System.out.println("file name -- " + testFeed);
-        System.out.println("Feature name --" + scenario.getId().split(";")[0]);
-        System.out.println("Feature name --" + scenario.getId());
         String appJson = getAppJson(testFeed);
 
         controller = new OptimusController(appJson, scenario);
         smartBOTs = controller.registerSmartBOTs();
+//        scenario.write("This goes into reports");
+//        scenario.embed("This goes into reports".getBytes(), "text/plain");
         optimus = new OptimusImpl(having(smartBOTs));
-
     }
 
     private List<SmartBOT> having(List<SmartBOT> smartBOTs) {
@@ -58,4 +56,5 @@ public class StartingSteps extends BaseSteps {
         }
         controller.deRegisterSmartBOTs(smartBOTs);
     }
+
 }
