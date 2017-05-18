@@ -60,7 +60,7 @@ You can learn more about the test which ran on your devices by following our [An
 ### Contact
 Our [FAQ](https://github.com/testvagrant/optimusTemplate/wiki/FAQ) covers most of the common issues. In case the issue you are facing is not available, you can reach out to us at optimus@testvagrant.com
 
-### Links to list of projects leveraging the power of Optimus framework
+### Links to projects leveraging the power of Optimus framework
 * [Swiggy](https://github.com/testvagrant/optimus_SwiggyTests)
 * [Kik](https://github.com/testvagrant/optimus_KikTests)
 * [Paytm](https://github.com/testvagrant/optimus_PaytmTests)
