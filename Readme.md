@@ -48,10 +48,10 @@ Your new OptimusTemplate project gets created with a sample test for an example 
 #### Step 1: Connect devices(Android or IOs) or create an Android Emulator.
 #### Step 2: Open your favourite terminal and navigate to the project folder.
 #### Step 3: Check for Android Devices or Emulators by running
-    gradle clean build runFragmentation -DtestFeed=OptimusAndroid -Dtags=@helloOptimus
+    gradle clean build runFragmentation -DtestFeed=HelloOptimusAndroid -Dtags=@helloOptimus
 Note: You will see that HelloOptimus app is launched on all the connected Android Devices and emulators.
 #### Step 4: Check for IOS by running
-    gradle clean build runFragmentation -DtestFeed=OptimusIOS -Dtags=@helloOptimus
+    gradle clean build runFragmentation -DtestFeed=HelloOptimusIOS -Dtags=@helloOptimus
 Note: You will see that HelloOptimus app is launched on a IPhone6 Simulator. 
 
 ### First test
