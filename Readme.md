@@ -57,13 +57,11 @@ Note: You will see that HelloOptimus app is launched on a IPhone6 Simulator.
 ### First test
 You can learn more about the test which ran on your devices by following our [Android Tutorial](https://github.com/testvagrant/optimusTemplate/wiki/My-First-Android-Test) or [IOS Tutorial](https://github.com/testvagrant/optimusTemplate/wiki/My-First-IOS-Test)
 
-### Contact
-Our [FAQ](https://github.com/testvagrant/optimusTemplate/wiki/FAQ) covers most of the common issues. In case the issue you are facing is not available, you can reach out to us at optimus@testvagrant.com
-
-### Links to projects leveraging the power of Optimus framework
+### Below are a few sample projects leveraging the power of Optimus framework
 * [Swiggy](https://github.com/testvagrant/optimus_SwiggyTests)
 * [Kik](https://github.com/testvagrant/optimus_KikTests)
 * [Paytm](https://github.com/testvagrant/optimus_PaytmTests)
 * [Scripbox](https://github.com/testvagrant/optimus_ScripboxTests)
 
-
+### Contact
+Our [FAQ](https://github.com/testvagrant/optimusTemplate/wiki/FAQ) covers most of the common issues. In case the issue you are facing is not available, you can reach out to us at optimus@testvagrant.com
