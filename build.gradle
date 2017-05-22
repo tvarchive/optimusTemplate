@@ -21,11 +21,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.codehaus.gpars:gpars:1.2.1"
-        classpath "net.masterthought:cucumber-reporting:3.3.0"
         classpath "gradle.plugin.com.testvagrant.optimus:Optimus:1.0.1"
-        classpath "com.testvagrant:optimus:1.+"
-        classpath "com.github.kstyrc:embedded-redis:0.6"
     }
 
 }
@@ -45,9 +41,6 @@ dependencies {
     compile('org.seleniumhq.selenium:selenium-java:2.53.1')
     compile 'cglib:cglib:3.2.4'
     compile 'com.testvagrant:optimus:1.+'
-    compile group: 'com.github.kstyrc', name: 'embedded-redis', version: '0.6'
-
-
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
     testCompile(group: 'org.json', name: 'json', version: '20131018')
