@@ -1,20 +1,13 @@
-import com.testvagrant.optimus.helpers.DeviceHelper
-import groovyx.gpars.GParsPool
-import net.masterthought.cucumber.ReportBuilder
-import net.masterthought.cucumber.Configuration
-import redis.embedded.RedisServer
-
-import java.text.DateFormat
-
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: "com.testvagrant.featureCollector.plugin"
+apply plugin: "com.testvagrant.optimus.plugin"
 
-featureTags {
-    println System.getProperty("tags")
+optimus {
+    testFeed = System.getProperty("testFeed");
     tags = System.getProperty("tags");
+    classpath = sourceSets.test.runtimeClasspath;
 }
 
 buildscript {
@@ -27,13 +20,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.codehaus.gpars:gpars:1.2.1"
-        classpath "net.masterthought:cucumber-reporting:3.3.0"
-        classpath "gradle.plugin.com.testvagrant.featureCollector:FeatureCollector:1.1.1"
-//        classpath "com.testvagrant:optimus:1.3.5"
-        classpath "com.testvagrant.optimus:optimus:1.0-SNAPSHOT"
-
-        classpath "com.github.kstyrc:embedded-redis:0.6"
+        classpath "gradle.plugin.com.testvagrant.optimus:Optimus:1.2"
     }
 
 }
@@ -53,190 +40,12 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.2.0'
     compile('org.seleniumhq.selenium:selenium-java:2.53.1')
     compile 'cglib:cglib:3.2.4'
-
-//    compile 'com.testvagrant:optimus:1.+'
     compile('com.testvagrant.optimus:optimus:1.0-SNAPSHOT') {
         changing true
     }
-
-    compile('com.testvagrant.optimusMonitor:optimusMonitor:1.0-SNAPSHOT')
-    compile group: 'com.github.kstyrc', name: 'embedded-redis', version: '0.6'
-//    compile files('libs/optimusRadiator-all-1.0-SNAPSHOT.jar')
-//    compile files('libs/performanceMonitor-all-1.0-SNAPSHOT.jar')
-
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
     testCompile(group: 'org.json', name: 'json', version: '20131018')
 }
-
-
-
-task optimusSetup(type: JavaExec, dependsOn: ['mongoSetup', 'classes']) {
-    main = 'com.testvagrant.optimus.OptimusMain'
-    classpath = sourceSets.test.runtimeClasspath
-}
-
-
-task mongoSetup(type: JavaExec, dependsOn: 'classes') {
-    main = 'com.testvagrant.monitor.MongoMain'
-    classpath = sourceSets.test.runtimeClasspath
-}
-
-def String getAppJson(String fileName) {
-    def file = new File('src/test/resources/' + fileName)
-    if (file.exists()) {
-        return file.text
-    }
-    return ''
-}
-
-
-task optimusTeardown(type: JavaExec) {
-    main = 'com.testvagrant.optimus.ReportMain'
-    classpath = sourceSets.test.runtimeClasspath
-}
-
-
-
-task runFragmentation(dependsOn: ['optimusSetup', 'classes']) {
-    doLast {
-        List<String> udidList = getDevicesForThisTestRun()
-        println udidList
-        runDeviceFragmentation(udidList)
-    }
-}
-
-private String updateReportFileName(String name) {
-    String[] deviceIdString = name.split(":");
-    return deviceIdString.length > 1 ? "emulator_" + deviceIdString[0].substring(deviceIdString[0].lastIndexOf(".") + 1) : name;
-}
-
-
-def runDeviceFragmentation(List<String> udidList) {
-    def size = udidList.size()
-    println "Total devices -- " + size
-    GParsPool.withPool(size) {
-        udidList.eachParallel { String udid ->
-
-            javaexec {
-                main = "cucumber.api.cli.Main"
-                classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/" + updateReportFileName(udid) + ".json"), "--glue", "steps", "-t", System.getProperty("tags"),
-                        "${project.projectDir}/src/test/resources/features"]
-                systemProperties = [
-                        "testFeed": System.getProperty("testFeed"),
-                        "udid"    : udid,
-                        "runMode" : "Fragmentation"
-                ]
-            }
-            println("Scenario output: ${reporting.baseDir}/cucumber/${udid}.log ")
-        }
-    }
-
-}
-
-
-task runDistribution(dependsOn: ['optimusSetup', 'clean', 'featureCollector']) {
-    featureCollector.outputs.upToDateWhen { false }
-    doLast {
-        List<String> udidList = getDevicesForThisTestRun()
-
-        def fileDirectory = tasks.featureCollector.outputs;
-        FileCollection fileCollection = fileDirectory.getFiles();
-        List<File> list = fileCollection.asList();
-        println "Runnable Features are available in this path -- " + list.get(0).getAbsolutePath();
-        File file = list.get(0);
-        runFunctionalDistribution(udidList, file.listFiles())
-    }
-}
-
-
-def runFunctionalDistribution(List<String> udidList, File[] allFiles) {
-
-    def size = udidList.size()
-    println "pool size -- " + size
-
-    GParsPool.withPool(size) {
-        allFiles.eachParallel { File file ->
-            javaexec {
-                main = "cucumber.api.cli.Main"
-                classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", ("json:${reporting.baseDir}/cucumber/${file.name}.json"), "--glue", "steps", "--tags", System.getProperty("tags"),
-                        file.toPath()]
-                systemProperties = [
-                        "testFeed": System.getProperty("testFeed"),
-                        "runMode" : "Distribution"
-                ]
-            }
-            println("Scenario output: ${reporting.baseDir}/cucumber/${file.name}.log ")
-        }
-    }
-
-}
-
-
-private List<String> getDevicesForThisTestRun() {
-    new DeviceHelper(getAppJson(System.getProperty("testFeed") + ".json")).getConnectedDevicesMatchingRunCriteria()
-}
-
-task reportDistribution() {
-    doLast {
-        generateReport(false)
-    }
-}
-
-
-task reportFragmentation() {
-    doLast {
-        generateReport(true)
-    }
-}
-
-def generateReport(Boolean isFragmentation) {
-    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
-    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
-
-    List<String> jsonReportFiles = new ArrayList<String>();
-    jsonReports.each { File file ->
-        jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
-    }
-
-    String buildNumber = DateFormat.instance.format(new Date())
-    String projectName = "cucumberProject";
-    boolean runWithJenkins = false;
-    boolean parallelTesting = isFragmentation;
-
-    Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-//optional configuration
-    configuration.setParallelTesting(parallelTesting);
-    configuration.setRunWithJenkins(runWithJenkins);
-    configuration.setBuildNumber(buildNumber);
-
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
-    reportBuilder.generateReports();
-
-    println("\nReport available on: ${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html")
-
-}
-
-def RedisServer redisServer;
-task startRedisServer() {
-    doLast {
-        redisServer = new RedisServer();
-        redisServer.start();
-    }
-}
-
-task killRedisServer() {
-    doLast {
-        "redis-cli shutdown".execute()
-    }
-}
-
-
-
-runDistribution.finalizedBy(optimusTeardown)
-runDistribution.finalizedBy(reportDistribution)
-runFragmentation.finalizedBy(reportFragmentation)
 
 
