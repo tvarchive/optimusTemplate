@@ -1,6 +1,7 @@
 package steps;
 
 import com.testvagrant.commons.entities.SmartBOT;
+import com.testvagrant.optimus.OptimusMain;
 import com.testvagrant.optimus.device.OptimusController;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -21,7 +22,7 @@ public class StartingSteps extends BaseSteps {
     public void setUp(Scenario scenario) throws Exception {
         String testFeed = System.getProperty("testFeed") + ".json";
         String appJson = getAppJson(testFeed);
-
+        OptimusMain.main(new String[]{testFeed});
         controller = new OptimusController(appJson, scenario);
         smartBOTs = controller.registerSmartBOTs();
 //        scenario.write("This goes into reports");
