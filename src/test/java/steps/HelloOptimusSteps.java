@@ -1,10 +1,11 @@
 package steps;
 
+import com.testvagrant.stepdefs.steps.BaseSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class HelloOptimusSteps extends BaseSteps{
+public class HelloOptimusSteps extends BaseSteps {
     @Given("^I have optimus hello application$")
     public void iHaveOptimusHelloApplication() throws Throwable {
         getDriverInstanceFor("optimus");

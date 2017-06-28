@@ -1,0 +1,4 @@
+# Sets the locators file format, you could use either elements/json file format, however default is json
+# eg: elementsFormat: json
+elementsFormat: elements
+mongoPort: 27017
