@@ -1,23 +1,15 @@
 package steps;
 
-import com.testvagrant.stepdefs.steps.BaseSteps;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import org.junit.Assert;
+import pages.HelloOptimusPage;
 
 public class HelloOptimusSteps extends BaseSteps {
-    @Given("^I have optimus hello application$")
-    public void iHaveOptimusHelloApplication() throws Throwable {
-        getDriverInstanceFor("optimus");
-    }
 
-    @When("^I open it on either emulator, simulator or device on any platform$")
-    public void iOpenItOnEitherEmulatorSimulatorOrDeviceOnAnyPlatform() throws Throwable {
-
-    }
-
-    @Then("^I should be able to say a hello to optimus$")
-    public void iShouldBeAbleToSayAHelloToOptimus() throws Throwable {
-
+    @Given("^I get a welcome message on successful execution of my hello optimus project$")
+    public void iGetAWelcomeMessageOnSuccessfulExecutionOfMyHelloOptimusProject() throws Throwable {
+        HelloOptimusPage helloOptimusPage = new HelloOptimusPage(getDriverInstanceFor("optimus"));
+        String welcomeMessage = helloOptimusPage.getWelcomeMessage();
+        Assert.assertEquals(HelloOptimusPage.MESSAGE,welcomeMessage);
     }
 }

@@ -1,0 +1,9 @@
+{
+  "elements":[
+    {
+      "elementName":"WelcomeMessage",
+      "identifier":"id",
+      "value":"welcome_message"
+    }
+  ]
+}

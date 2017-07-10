@@ -2,11 +2,10 @@ package steps;
 
 import com.testvagrant.commons.utils.JsonUtil;
 import com.testvagrant.optimus.device.OptimusController;
-import com.testvagrant.stepdefs.steps.BaseSteps;
-import com.testvagrant.stepdefs.steps.OptimusImpl;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import utils.OptimusImpl;
 
 import java.io.IOException;
 

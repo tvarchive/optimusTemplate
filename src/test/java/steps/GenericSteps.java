@@ -2,7 +2,6 @@ package steps;
 
 import com.testvagrant.commons.exceptions.OptimusException;
 import com.testvagrant.stepdefs.exceptions.NoSuchEventException;
-import com.testvagrant.stepdefs.steps.BaseSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 
@@ -53,4 +52,6 @@ public class GenericSteps extends BaseSteps {
                 .withValue(value)
                 .serve();
     }
+
+
 }
