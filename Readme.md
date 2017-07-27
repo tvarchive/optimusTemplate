@@ -49,7 +49,9 @@ In optimus you can run your code in any of the two modes, which are
 
 `Fragmentation`: Each feature will run on each of the devices (5 features on 5 devices).     
 ![](http://i.imgur.com/dGtTjEY.jpg)      
-`Distributuion`: Each feature will run on one single device (1 feature on 1 device ). 
+`Distributuion`: Each feature will run on one single device (1 feature on 1 device ).        
+![](http://i.imgur.com/7AhgPzi.jpg)     
+ 
 
 Your new OptimusTemplate project gets created with a sample test for an example app `HelloOptimus` you can run your project as shown below.
 
