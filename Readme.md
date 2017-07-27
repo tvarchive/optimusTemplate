@@ -50,7 +50,7 @@ In optimus you can run your code in any of the two modes, which are
 Suppose you have 5 feature files in your project and 5 devices connected, now in     
 `Fragmentation`: All 5 features will run on all 5 devices.     
 ![](http://i.imgur.com/dGtTjEY.jpg)      
-`Distributuion`: one feature will run on each device.        
+`Distributuion`: one feature will run on one device.        
 ![](http://i.imgur.com/7AhgPzi.jpg)     
  
 
