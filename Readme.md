@@ -11,30 +11,44 @@ to get started with your tests in the swiftest time possible. Read more about Op
 
 
 ### Getting started with Optimus
-Install the <b>optimus-cli</b> utilty
+
+* **Step 1**: Install the <b>optimus-cli</b> utilty
 
 ```
 npm install -g optimus-cli
 ```
 
-Verify if your system is ready for using Optimus
+* **Step 2**: Verify if your system is ready for using Optimus
 
 ```
 $ optimus doctor
 ```
 
-Install if `optimus doctor` reported any missing dependencies.
+* **Step 3**: Install if `optimus doctor` reported any missing dependencies.
 
 ```
 $ optimus setup
 ```
+* **Step 4a**: <b>(Only for macOS)</b> Install Xcode manually from App store or via [Downloads page](https://developer.apple.com/download/) and move it to Applications.
 
-To create a new Optimus project.
+* **Step 4b**: <b>(Only for macOS)</b> If you have multiple versions of Xcode installed on your machine then use this command in your in terminal:    
+`sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` where `xcode` is the name of Xcode installed on your machine or the Xcode which you want to use with optimus.
+
+* **Step 5**: <b>Configure Mongodb</b>     
+If you have installed mongodb using optimus doctor command. You will have to manually create /Data/db folder.
+
+    Here is how you do it in terminal
+```
+sudo mkdir -p /Data/db
+sudo chmod 777 /Data/db
+```
+    try running mongod command in your terminal now, mongo instance should be up and running on port 27017
+* **Step 6**: To create a <b>new Optimus project</b>.
 
 ```
 $ optimus new <project_name>
 ```
-Once the project is created you can import the project into your favourite IDE. However we love [IntelliJ](https://github.com/testvagrant/optimusTemplate/wiki/Import-Optimus-Project---Intellij) though. 
+* **Step 7**: Once the project is created you can import the project into your favourite IDE. However we love [IntelliJ](https://github.com/testvagrant/optimusTemplate/wiki/Import-Optimus-Project---Intellij) though. 
 
 ### Import Project
 * [IntelliJ](https://github.com/testvagrant/optimusTemplate/wiki/Import-Optimus-project-using-Intellij)
