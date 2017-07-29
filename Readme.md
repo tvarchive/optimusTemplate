@@ -57,7 +57,7 @@ $ optimus new <project_name>
 
 ### Run
 
-In optimus you can run your code in any of the two modes, which are    
+Optimus runs your tests in parallel by default. Just connect the devices you need coverage on and choose between one of the following modes to trigger your test run
 1. `Fragmentation`      
 2. `Distribution`    
 
