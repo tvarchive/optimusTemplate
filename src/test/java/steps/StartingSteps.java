@@ -19,6 +19,8 @@ public class StartingSteps extends BaseSteps {
 
         controller = new OptimusController(appJson, scenario);
         smartBOTs = controller.registerSmartBOTs();
+        System.out.println("Appium Services are..."+smartBOTs.size());
+        smartBOTs.forEach(smartBOT -> System.out.println(smartBOT.getAppiumService()));
         optimus = new OptimusImpl(smartBOTs);
     }
 

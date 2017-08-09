@@ -8,4 +8,6 @@ Feature: Say Hello to Optimus
 
 
 
-
+  @helloOptimusIos
+  Scenario: Hello Optimus IOS1
+    Given I am running this scenario in parrallel on IOS

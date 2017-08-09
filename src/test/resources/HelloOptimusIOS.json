@@ -13,12 +13,13 @@
         "appiumServerCapabilities": {
           "app": "HelloOptimus.app",
           "platformName": "iOS",
-          "deviceName":"iPhone 6",
-          "platformVersion": "9.3",
-          "automationName": "XCUITest"
+          "platformVersion": "11.0",
+          "automationName":"XcuiTest"
         },
         "iOSOnlyCapabilities": {
-          "launchTimeout": 300000
+          "launchTimeout": 300000,
+          "useNewWDA":false,
+          "showXcodeLog":true
         }
       },
       "deviceState":{

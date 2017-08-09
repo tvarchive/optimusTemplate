@@ -54,4 +54,8 @@ public class GenericSteps extends BaseSteps {
     }
 
 
+    @Given("^I am running this scenario in parrallel on IOS$")
+    public void iAmRunningThisScenarioInParrallelOnIOS() throws Throwable {
+        System.out.println("Something Ran");
+    }
 }

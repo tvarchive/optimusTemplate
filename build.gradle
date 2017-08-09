@@ -26,15 +26,17 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
         mavenCentral()
+        mavenLocal()
     }
 
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:1.9"
+        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.0"
     }
 
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
