@@ -30,7 +30,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.0"
+        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.1"
     }
 
 }

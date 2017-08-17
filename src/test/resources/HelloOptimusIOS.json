@@ -13,7 +13,8 @@
         "appiumServerCapabilities": {
           "app": "HelloOptimus.app",
           "platformName": "iOS",
-          "platformVersion": "11.0",
+          "platformVersion": "9.3",
+          "deviceName": "iPhone 5s",
           "automationName":"XcuiTest"
         },
         "iOSOnlyCapabilities": {

@@ -32,7 +32,7 @@ public class GenericSteps extends BaseSteps {
     }
 
     @And("^(\\w+)\\s+on\\s+(\\w+)\\sscreen verifies\\s+(\\w+)\\s+is\\s+(.*)$")
-    public  void  assertelement(String consumer, String screen, String element, String action) throws OptimusException, NoSuchEventException, IOException {
+    public  void  assertelement(String consumer, String screen, String element, String action) throws NoSuchEventException, IOException, OptimusException {
         tapster().useDriver(getDriverInstanceFor(consumer))
                 .onScreen(screen)
                 .asConsumer(consumer)

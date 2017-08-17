@@ -16,7 +16,6 @@ public class StartingSteps extends BaseSteps {
     public void setUp(Scenario scenario) throws Exception {
         String testFeed = System.getProperty("testFeed") + ".json";
         String appJson = new JsonUtil().getAppJson(testFeed);
-
         controller = new OptimusController(appJson, scenario);
         smartBOTs = controller.registerSmartBOTs();
         System.out.println("Appium Services are..."+smartBOTs.size());
