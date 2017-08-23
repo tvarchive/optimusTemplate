@@ -39,8 +39,8 @@ If you have installed mongodb using optimus doctor command. You will have to man
 
     Here is how you do it in terminal
 ```
-sudo mkdir -p /Data/db
-sudo chmod 777 /Data/db
+sudo mkdir -p /data/db
+sudo chmod 777 /data/db
 ```
     try running mongod command in your terminal now, mongo instance should be up and running on port 27017
 * **Step 6**: To create a <b>new Optimus project</b>.
