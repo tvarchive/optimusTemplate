@@ -20,37 +20,30 @@ tasks.runFragmentation.finalizedBy 'fragmentationReport'
 tasks.runDistribution.finalizedBy 'distributionReport'
 
 buildscript {
-
     repositories {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
         mavenCentral()
-        mavenLocal()
     }
-
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.1"
+        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.2.0"
     }
 
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
-ext.cukesVersion = '1.2.5'
 
 dependencies {
-    compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
-    compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
-    compile group: 'info.cukes', name: 'cucumber-java8', version: "$cukesVersion"
     compile 'org.codehaus.groovy:groovy-all:2.2.0'
     compile('org.seleniumhq.selenium:selenium-java:2.53.1')
     compile 'cglib:cglib:3.2.4'
-    compile('com.testvagrant:optimus:2.+')
-    compile 'com.testvagrant.stepdefs:stepdefs:1.+'
+    compile 'com.testvagrant:optimus:2.2.0'
+    compile 'com.testvagrant.stepdefs:stepdefs:1.0.2'
+    compile 'com.testvagrant.intents:intents:1.0.3'
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
     testCompile(group: 'org.json', name: 'json', version: '20131018')
