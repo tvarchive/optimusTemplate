@@ -11,5 +11,6 @@ public class HelloOptimusSteps extends BaseSteps {
         HelloOptimusPage helloOptimusPage = new HelloOptimusPage(getDriverInstanceFor("optimus"));
         String welcomeMessage = helloOptimusPage.getWelcomeMessage();
         Assert.assertEquals(HelloOptimusPage.MESSAGE,welcomeMessage);
+        Assert.fail("testing failure");
     }
 }

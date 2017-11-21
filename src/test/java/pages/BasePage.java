@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -204,26 +205,43 @@ public class BasePage {
     public void scrollDown() {
         int height = driver.manage().window().getSize().getHeight();
 
-        driver.swipe(5, height * 2 / 3, 5, height / 3, 1000);
+//        driver.swipe(5, height * 2 / 3, 5, height / 3, 1000);
+        new TouchAction(driver).press(5, height * 2 / 3)
+                .waitAction(Duration.ofMillis(1000))
+                .moveTo(5, height / 3)
+                .release().perform();
+
     }
 
     public void scrollUp() {
 
         int height = driver.manage().window().getSize().getHeight();
 
-        driver.swipe(5, height / 3, 5, height * 2 / 3, 1000);
+//        driver.swipe(5, height / 3, 5, height * 2 / 3, 1000);
+        new TouchAction(driver).press(5, height / 3)
+                .waitAction(Duration.ofMillis(1000))
+                .moveTo(5, height * 2 / 3)
+                .release().perform();
     }
 
     public void swipeLeftToRight() {
         int height = driver.manage().window().getSize().getHeight();
         int width = driver.manage().window().getSize().getWidth();
-        driver.swipe(width / 3, height / 2, width * 2 / 3, height / 2, 100);
+//        driver.swipe(width / 3, height / 2, width * 2 / 3, height / 2, 100);
+        new TouchAction(driver).press(width / 3, height / 2)
+                .waitAction(Duration.ofMillis(1000))
+                .moveTo(width * 2 / 3, height / 2)
+                .release().perform();
     }
 
     public void swipeRightToLeft() {
         int height = driver.manage().window().getSize().getHeight();
         int width = driver.manage().window().getSize().getWidth();
-        driver.swipe(width * 9 / 10, height / 2, width / 10, height / 2, 1000);
+//        driver.swipe(width * 9 / 10, height / 2, width / 10, height / 2, 1000);
+        new TouchAction(driver).press(width * 9 / 10, height / 2)
+                .waitAction(Duration.ofMillis(1000))
+                .moveTo(width / 10, height / 2)
+                .release().perform();
     }
 
     public void scrollUpTo(String text) {
@@ -270,7 +288,11 @@ public class BasePage {
                 driver.findElement(byOfElementToBeFound).click();
                 return;
             }
-            driver.swipe(width * 6 / 7, height, width / 7, height, 1000);
+//            driver.swipe(width * 6 / 7, height, width / 7, height, 1000);
+            new TouchAction(driver).press(width * 6 / 7, height)
+                    .waitAction(Duration.ofMillis(1000))
+                    .moveTo(width / 7, height)
+                    .release().perform();
             count++;
         }
         Assert.fail("Could not find element with by - " + byOfElementToBeFound.toString());
@@ -297,12 +319,22 @@ public class BasePage {
                 if (_count == count) {
                     flag = false;
                 } else {
-                    driver.swipe(width - x_int, y_int, x_int, y_int, 1000);
+//                    driver.swipe(width - x_int, y_int, x_int, y_int, 1000);
+                    new TouchAction(driver).press(width - x_int, y_int)
+                            .waitAction(Duration.ofMillis(1000))
+                            .moveTo(x_int, y_int)
+                            .release().perform();
+
                     _count++;
                     System.out.println("Swipe Count :: " + _count);
                 }
             } catch (Exception e) {
-                driver.swipe(width - 100, y_int + 100, x_int + 100, y_int + 100, 1000);
+//                driver.swipe(width - 100, y_int + 100, x_int + 100, y_int + 100, 1000);
+                new TouchAction(driver).press(width - 100, y_int + 100)
+                        .waitAction(Duration.ofMillis(1000))
+                        .moveTo(x_int + 100, y_int + 100)
+                        .release().perform();
+
                 _count++;
                 System.out.println("Inside catch block");
 
@@ -317,7 +349,12 @@ public class BasePage {
     }
 
     protected void swipeFromTo(WebElement startElement, WebElement stopElement) {
-        driver.swipe(startElement.getLocation().getX(), startElement.getLocation().getY(), stopElement.getLocation().getX(), stopElement.getLocation().getY(), 1000);
+//        driver.swipe(startElement.getLocation().getX(), startElement.getLocation().getY(), stopElement.getLocation().getX(), stopElement.getLocation().getY(), 1000);
+        new TouchAction(driver).press(startElement.getLocation().getX(), startElement.getLocation().getY())
+                .waitAction(Duration.ofMillis(1000))
+                .moveTo(stopElement.getLocation().getX(), stopElement.getLocation().getY())
+                .release().perform();
+
     }
 
     public void swipeFromLeftToRight(WebElement webElement) {

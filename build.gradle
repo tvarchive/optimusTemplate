@@ -25,25 +25,33 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.2.0"
+//        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.3-SNAPSHOT"
+        classpath "com.testvagrant.optimus:OptimusGradle:2.3-SNAPSHOT"
     }
 
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
+
 }
 
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.2.0'
-    compile('org.seleniumhq.selenium:selenium-java:2.53.1')
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.6.0'
+
     compile 'cglib:cglib:3.2.4'
-    compile 'com.testvagrant:optimus:2.2.0'
-    compile 'com.testvagrant.stepdefs:stepdefs:1.0.2'
-    compile 'com.testvagrant.intents:intents:1.0.3'
+//    compile 'com.testvagrant:optimus:2.2.0'
+    compile 'com.testvagrant.intents:Intents:1.0.4-SNAPSHOT'
+    compile 'com.testvagrant.optimus:optimus:2.2.1-SNAPSHOT'
+    compile 'com.testvagrant.optimus:StepDefs:1.2-SNAPSHOT'
+//    compile 'com.testvagrant.intents:intents:1.0.3'
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
     testCompile(group: 'org.json', name: 'json', version: '20131018')
