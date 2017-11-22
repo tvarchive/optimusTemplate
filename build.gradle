@@ -9,6 +9,7 @@ apply plugin: "com.testvagrant.optimus.plugin"
 optimus {
     testFeed = System.getProperty("testFeed");
     tags = System.getProperty("tags");
+    devMode = System.getProperty("devMode");
     classpath = sourceSets.test.runtimeClasspath
 }
 
