@@ -9,16 +9,26 @@ apply plugin: "com.testvagrant.optimus.plugin"
 optimus {
     testFeed = System.getProperty("testFeed");
     tags = System.getProperty("tags");
-    devMode = System.getProperty("devMode");
+    devMode = System.getProperty("devMode",false);
+    regression = System.getProperty("regression");
+    env = System.getProperty("env", "integration");
     classpath = sourceSets.test.runtimeClasspath
 }
 
+service {
+    database = System.getProperty("database", "optimus")
+    port = System.getProperty("port", "8090")
+    uri = System.getProperty("uri", "mongodb://localhost:27017")
+}
+
 //Optimus Execution Rules
-tasks.runFragmentation.dependsOn 'clean', 'build'
-tasks.runDistribution.dependsOn 'clean', 'build'
+tasks.runFragmentation.dependsOn 'clean', 'build','spinServices'
+tasks.runDistribution.dependsOn 'clean', 'build','spinServices'
 tasks.build.mustRunAfter 'clean'
 tasks.runFragmentation.finalizedBy 'fragmentationReport'
 tasks.runDistribution.finalizedBy 'distributionReport'
+tasks.fragmentationReport.finalizedBy 'stopServices'
+tasks.distributionReport.finalizedBy 'stopServices'
 
 buildscript {
     repositories {
@@ -28,7 +38,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.2.4"
+        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:2.3.2"
     }
 
 }
@@ -46,9 +56,9 @@ dependencies {
 
     compile 'cglib:cglib:3.2.4'
 
-    compile 'com.testvagrant:optimus:2.2.1'
-    compile 'com.testvagrant.intents:intents:1.0.4'
-    compile 'com.testvagrant.stepdefs:stepdefs:1.0.5'
+    compile group: 'com.testvagrant', name: 'optimus', version: '2.3.3-beta'
+    compile 'com.testvagrant.stepdefs:stepdefs:1.0.7'
+    compile 'com.testvagrant.intents:intents:1.0.6'
 
     testCompile('com.google.inject:guice:3.0')
     testCompile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')

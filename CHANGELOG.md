@@ -1,3 +1,18 @@
+CHANGES IN VERSION 2.3.3-Beta (from 2.2.1)
+===================================
+
+Optimus 2.3.3-beta upgrades to latest version of underlying new features
+
+
+#### New features
+* Optimus-Services will handle all CRUD operations. This will help in writing to cloud
+* User can define their own db name or start services on multiple ports for handle multi app products.
+
+
+#### Fixes
+* Intents will cascade exception to steps revealing cause of failure in reports.
+* Fixed swipe and scroll to latest changes from cucumber.
+
 CHANGES IN VERSION 2.2.1 (from 2.2.0)
 ===================================
 
