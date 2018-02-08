@@ -1,6 +1,7 @@
 package steps;
 
 import com.testvagrant.commons.utils.JsonUtil;
+import com.testvagrant.monitor.exceptions.DeviceReleaseException;
 import com.testvagrant.optimus.device.OptimusController;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -24,7 +25,7 @@ public class StartingSteps extends BaseSteps {
     }
 
     @After
-    public void tearDown(Scenario scenario) throws IOException {
+    public void tearDown(Scenario scenario) throws IOException, DeviceReleaseException {
         if (scenario.isFailed()) {
             byte[] failedScreens = optimus.getScreenCapture();
             scenario.embed(failedScreens, "image/png");

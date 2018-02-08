@@ -15,16 +15,13 @@
           "platformName": "iOS",
           "platformVersion": "9.3",
           "deviceName": "iPhone 5s",
-          "automationName":"XcuiTest"
+          "automationName": "XcuiTest"
         },
         "iOSOnlyCapabilities": {
           "launchTimeout": 300000,
-          "useNewWDA":false,
-          "showXcodeLog":true
+          "useNewWDA": false,
+          "showXcodeLog": true
         }
-      },
-      "deviceState":{
-        "captureVideo":true
       }
     }
   ]
