@@ -1,3 +1,17 @@
+Optimus 3.0 (from 2.3.7-beta)
+===================================
+
+Optimus 3.0 has one big feature release
+
+
+#### New features
+* Supports iOS parallelisation
+
+
+#### Fixes
+* Resolved appium log path issue on windows
+* Resolved issue when capabilities are passed as an array.
+
 CHANGES IN VERSION 2.3.3-Beta (from 2.2.1)
 ===================================
 
