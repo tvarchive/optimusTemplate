@@ -1,9 +1,6 @@
-.idea
-.gradle
-build
-out
-optimus.log
-dump.rdb
+_site/
+.sass-cache/
+.jekyll-metadata
+_pdf
 .DS_Store
-
-
+.idea

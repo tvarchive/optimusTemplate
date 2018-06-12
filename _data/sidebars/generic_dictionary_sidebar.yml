@@ -1,0 +1,44 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: sidebar
+  product: 
+  levels: one
+  version: 
+  folders:
+
+  - title: Generic Actions
+    output: web
+    type: homepage
+    folderitems:
+    - title: Tap
+      url: /optimus/genericdictionary#Tap
+      output: web
+      type: frontmatter
+    - title: Slide
+      url: /optimus/genericdictionary#Slide
+      output: web
+      type: frontmatter
+    - title: Scroll Up or Down
+      url: /optimus/genericdictionary#Scroll
+      output: web
+      type: frontmatter
+    - title: Assert
+      url: /optimus/genericdictionary#Assert
+      output: web
+      type: frontmatter
+    - title: Swipe Left or Right
+      url: /optimus/genericdictionary#Swipe
+      output: web
+      type: frontmatter
+    - title: Type
+      url: /optimus/genericdictionary#Type
+      output: web
+      type: frontmatter
+    - title: Navigate
+      url: /optimus/genericdictionary#Navigate
+      output: web
+      type: frontmatter
+
+  

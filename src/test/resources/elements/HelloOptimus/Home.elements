@@ -1,8 +1,0 @@
-{
-    "elements":[
-        {
-            "elementName":"WelcomeMessage",
-            "referTo":"WelcomeMessageCommon"
-        }
-    ]
-}

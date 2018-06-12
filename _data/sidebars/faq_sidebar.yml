@@ -1,0 +1,44 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: sidebar
+  product: 
+  levels: one
+  version: 
+  folders:
+
+  - title: FAQs
+    output: web
+    type: homepage
+    folderitems:
+    - title: Optimus doctor command fails throwing “Cannot find linux brew, install it manally from ‘http://linuxbrew.sh/’ update and try again”?
+      url: faq#faq1
+      output: web
+      type: frontmatter
+    - title: How to get app package and launch activity?
+      url: faq#faq2
+      output: web
+      type: frontmatter
+    - title: How to install NPM on Linux platform?
+      url: faq#faq3
+      output: web
+      type: frontmatter
+    - title: aapt is not found, when trying to get app package name and launchable activity
+      url: faq#faq4
+      output: web
+      type: frontmatter
+    - title: My Scenario runs fine using gradle command but fails when running it from IntelliJ runner.
+      url: faq#faq5
+      output: web
+      type: frontmatter
+    - title: Cannot run mongod as it cannot find /Data/db folder.
+      url: faq#faq6
+      output: web
+      type: frontmatter
+    - title: Unable to use xcodebuild or xcode is not detecting.
+      url: faq#faq7
+      output: web
+      type: frontmatter
+
+  
