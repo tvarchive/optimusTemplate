@@ -110,3 +110,39 @@ sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 ```       
 
 ***
+
+#### <a name="faq8"></a>How to Run or Debug features from intellij
+In order to run a feature file or a particular scenario from IntelliJ, you need to perform some basic steps, which are as follows:
+
+1. Launch **`IntelliJ`** via **`Terminal/Command Line`** [IntelliJ Configuration to launch it from command line](https://www.jetbrains.com/help/idea/working-with-the-ide-features-from-command-line.html)
+
+2. After opening IntelliJ and select **`Run/Debug Configuration`** and select **`Edit Configurations...`**
+
+      ![](http://i.imgur.com/9S1Fr6z.png)
+
+3. Now Select **`Defaults`** from the **`Run/Debug Configuration`** window and choose **`Cucumber Java`**
+
+      ![](http://i.imgur.com/1VkwSYu.png)
+
+4. On right-hand side in **`Before Launch`** section add a new configuration by clicking on it and selecting **`Run Gradle Task`**
+
+      ![](http://i.imgur.com/o4FUq11.png)
+
+5. In **`Select Gradle Task`** select a Gradle project (current project) and on **`Tasks`** type **`spinServices`** and click **`OK`**
+
+      ![](https://imgur.com/iPx7t9t.png)
+
+6. Now create one more **`Gradle Task`** -> In **`Select Gradle Task`** select a Gradle project (current project) and on **`Tasks`** type **`optimusSetup`** and add a VM option for this gradle task. **`-DtestFeed="Name of your json file/Test feed fileName"`** and click **`OK`**
+
+      ![](https://i.imgur.com/GybnVMS.png)
+
+7. Check the Gradle Tasks order, first **`spinServices`** and then **`optimusSetup`**. If this is not in the order re-arrange it
+
+    ![](https://i.imgur.com/qYekYTg.png)
+
+8. Next on **`Run/Debug Configuration`** windows provide Glue as steps and VM Options as     
+**`-DtestFeed="Name of your json file/Test feed fileName" -DrunMode="Fragmentation/Distribution"`**
+
+      ![](https://i.imgur.com/ZgqLZyL.png)      
+
+***

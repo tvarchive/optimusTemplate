@@ -36,6 +36,10 @@ entries:
     output: web, pdf
     folderitems:
 
+    - title: Install Optimus CLI in Windows
+      url: /optimus_cli_windows_tutorial
+      output: web, pdf
+
     - title: My First Android Test
       url: /android_tutorial
       output: web, pdf
@@ -44,7 +48,7 @@ entries:
       url: /ios_tutorial
       output: web, pdf
     
-    - title: Creating Object Repository
+    - title: Creating Object Repositor
       url: /object_repository
       output: web, 
   

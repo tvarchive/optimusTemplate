@@ -6,7 +6,7 @@ tags: [android,tutorials]
 summary: "Get started with your first android test"
 sidebar: optimus_sidebar
 permalink: android_tutorial
-folder: mydoc
+folder: tutorial
 ---
 
 Writing tests in Optimus is no different than the tests you write everyday,

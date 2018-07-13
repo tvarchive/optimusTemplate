@@ -40,5 +40,9 @@ entries:
       url: faq#faq7
       output: web
       type: frontmatter
+    - title: How to Run or Debug features from intellij
+      url: faq#faq8
+      output: web
+      type: frontmatter
 
   
