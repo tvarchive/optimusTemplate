@@ -38,7 +38,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:3.0"
+        classpath "gradle.plugin.com.testvagrant.optimus:OptimusGradle:3.0.1"
     }
 
 }
@@ -56,7 +56,7 @@ dependencies {
 
     compile 'cglib:cglib:3.2.4'
 
-    compile group: 'com.testvagrant', name: 'optimus', version: '3.0'
+    compile group: 'com.testvagrant', name: 'optimus', version: '3.0.1'
     compile 'com.testvagrant.stepdefs:stepdefs:1.0.8'
     compile 'com.testvagrant.intents:intents:1.0.6'
 
