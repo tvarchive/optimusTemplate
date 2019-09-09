@@ -2,15 +2,22 @@ package pages;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static java.lang.Runtime.getRuntime;
 
 
 public class BasePage {
@@ -18,18 +25,47 @@ public class BasePage {
     private AppiumDriver driver;
     private WebDriverWait wait;
 
-    @FindBy(xpath = "//android.widget.ImageButton[@content-desc = 'Navigate up']")
-    protected WebElement backButton;
-
     public BasePage(AppiumDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver, 30);
+        wait = new WebDriverWait(this.driver, 20);
+    }
+
+
+    public BasePage() {
+    }
+
+    private static ExpectedCondition<WebElement> elementToBeChecked(
+            final WebElement element) {
+        return new ExpectedCondition<WebElement>() {
+
+            public ExpectedCondition<WebElement> visibilityOfElement =
+                    ExpectedConditions.visibilityOf(element);
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                WebElement element = visibilityOfElement.apply(driver);
+                try {
+                    if (element != null && element.getAttribute("checked").equals("true")) {
+                        return element;
+                    } else {
+                        return null;
+                    }
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element to be checked : " + element;
+            }
+        };
     }
 
     public boolean allowPermissionPopup() {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         try {
-            By allowXpath = By.xpath("//*[@text='Allow']");
+            By allowXpath = By.xpath("//*[@text='Allow' or @name = 'Allow']");
             WebElement acceptElement = webDriverWait.until(ExpectedConditions.elementToBeClickable(allowXpath));
             acceptElement.click();
             acceptElement = webDriverWait.until(ExpectedConditions.elementToBeClickable(allowXpath));
@@ -53,12 +89,25 @@ public class BasePage {
         }
     }
 
+    public void click_last(List<WebElement> element) {
+        waitForElementToBeClickable(getLast(element));
+        getLast(element).click();
+    }
+
+    public WebElement getLast(List<WebElement> element) {
+        return element.get(element.size() - 1);
+    }
+
     public WebElement waitForElementToBeVisible(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitForElementToBeClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void waitForTextToBePresentInElement(WebElement element, String text) {
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
     public void waitForElementToBeSelected(WebElement element) {
@@ -104,9 +153,17 @@ public class BasePage {
         return false;
     }
 
-
     public void waitForInvisibilityOfElementByText(By by, String text) {
         wait.until(ExpectedConditions.invisibilityOfElementWithText(by, text));
+    }
+
+    public void waitForElementToBeInVisible(WebElement element) {
+        wait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public void waitForElementToBeInVisible(WebElement element, int timeout) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, timeout);
+        webDriverWait.until(ExpectedConditions.invisibilityOf(element));
     }
 
     public void waitForElementToBeInvisible(By by) {
@@ -115,39 +172,6 @@ public class BasePage {
 
     public void waitForElementToBeChecked(WebElement element) {
         wait.until(elementToBeChecked(element));
-    }
-
-    private static ExpectedCondition<WebElement> elementToBeChecked(
-            final WebElement element) {
-        return new ExpectedCondition<WebElement>() {
-
-            public ExpectedCondition<WebElement> visibilityOfElement =
-                    ExpectedConditions.visibilityOf(element);
-
-            @Override
-            public WebElement apply(WebDriver driver) {
-                WebElement element = visibilityOfElement.apply(driver);
-                try {
-                    if (element != null && element.getAttribute("checked").equals("true")) {
-                        return element;
-                    } else {
-                        return null;
-                    }
-                } catch (StaleElementReferenceException e) {
-                    return null;
-                }
-            }
-
-            @Override
-            public String toString() {
-                return "element to be checked : " + element;
-            }
-        };
-    }
-
-    public void tapOnBackButton() {
-        waitForElementToBeClickable(backButton);
-        backButton.click();
     }
 
     public void sendKeys(WebElement elem, String text) {
@@ -185,7 +209,28 @@ public class BasePage {
     }
 
     public void scrollDownTo(String text) {
-        scrollDownTo(By.xpath("//*[@text=\"" + text + "\"]"));
+        scrollDownTo(By.xpath("//*[@text=\'" + text + "\' or @name=\'" + text + "\']"));
+    }
+
+    public void tapOn(String text) {
+        driver.findElement(By.xpath("//*[@text=\'" + text + "\']")).click();
+    }
+
+    public void scrollDownToContainsText(String text) {
+        scrollDownTo(By.xpath("//*[contains(@text,\'" + text + "\') or contains(@name,\'" + text + "\')]"));
+    }
+
+    public void scrollDownTo(String attribute, String text) {
+
+        switch(attribute) {
+            case "content-desc":
+                scrollDownWithoutFailTo(By.xpath("//*[@content-desc=\'" + text + "\']"));
+                break;
+        }
+    }
+
+    public void checkIsDisplayed(String text) throws Exception{
+        driver.findElement(By.xpath("//*[@text=\'" + text + "\']")).isDisplayed();
     }
 
     public void scrollDownTo(By byOfElementToBeFound) {
@@ -202,12 +247,99 @@ public class BasePage {
         Assert.fail("Did not find : " + byOfElementToBeFound.toString());
     }
 
+    public void scrollDownWithoutFailTo(By byOfElementToBeFound) {
+        hideKeyboard();
+        int i = 0;
+        while (i < 4) {
+            if (driver.findElements(byOfElementToBeFound).size() > 0)
+                return;
+
+            scrollDown();
+
+            i++;
+        }
+    }
+
+    public void scrollDownTo(WebElement element) {
+        hideKeyboard();
+        int i = 0;
+        while (i < 12) {
+            try {
+                if (element.isDisplayed())
+                    return;
+            } catch (Exception e) {
+
+            }
+
+            scrollDown();
+
+            i++;
+        }
+        Assert.fail("Did not find : " + element.toString());
+    }
+
+    // when locating the `element` is optional
+    public void scrollDownWithoutFailTo(WebElement element) {
+        hideKeyboard();
+        int i = 0;
+        while (i < 12) {
+            try {
+                if (element.isDisplayed())
+                    return;
+            } catch (Exception e) {
+
+            }
+
+            scrollDown();
+
+            i++;
+        }
+    }
+
+    // As Handling the `Start Investing` Button is a special case
+    public void scrollDownWithoutFailStartInvesting(WebElement element) {
+        hideKeyboard();
+        int i = 0;
+        while (i < 2) {
+            try {
+                if (element.isDisplayed())
+                    return;
+            } catch (Exception e) {
+
+            }
+
+            scrollDown();
+
+            i++;
+        }
+    }
+
+    public void scrollDownTo(List<WebElement> initSize) {
+        hideKeyboard();
+        int i = 0;
+        int size = initSize.size();
+        while (i < 12) {
+            if (size < initSize.size()) {
+                break;
+            }
+            scrollDown();
+            i++;
+        }
+    }
+
     public void scrollDown() {
         int height = driver.manage().window().getSize().getHeight();
 
-        new TouchAction(driver).press(5, height * 2 / 3)
-                .waitAction(Duration.ofMillis(1000))
-                .moveTo(5, height / 3)
+        PointOption pointOption = new PointOption();
+        pointOption.withCoordinates(5, height * 2 / 3);
+
+        PointOption moveToPointOption = new PointOption();
+        moveToPointOption.withCoordinates(5, height / 3);
+        WaitOptions waitOptions = new WaitOptions();
+        waitOptions.withDuration(Duration.ofMillis(1000));
+        new TouchAction(driver).press(pointOption)
+                .waitAction(waitOptions)
+                .moveTo(moveToPointOption)
                 .release().perform();
 
     }
@@ -216,28 +348,28 @@ public class BasePage {
 
         int height = driver.manage().window().getSize().getHeight();
 
-        new TouchAction(driver).press(5, height / 3)
-                .waitAction(Duration.ofMillis(1000))
-                .moveTo(5, height * 2 / 3)
-                .release().perform();
+//        new TouchAction(driver).press(5, height / 3)
+//                .waitAction(Duration.ofMillis(1000))
+//                .moveTo(5, height * 2 / 3)
+//                .release().perform();
     }
 
     public void swipeLeftToRight() {
         int height = driver.manage().window().getSize().getHeight();
         int width = driver.manage().window().getSize().getWidth();
-        new TouchAction(driver).press(width / 3, height / 2)
-                .waitAction(Duration.ofMillis(1000))
-                .moveTo(width * 2 / 3, height / 2)
-                .release().perform();
+//        new TouchAction(driver).press(width / 3, height / 2)
+//                .waitAction(Duration.ofMillis(1000))
+//                .moveTo(width * 2 / 3, height / 2)
+//                .release().perform();
     }
 
     public void swipeRightToLeft() {
         int height = driver.manage().window().getSize().getHeight();
         int width = driver.manage().window().getSize().getWidth();
-        new TouchAction(driver).press(width * 9 / 10, height / 2)
-                .waitAction(Duration.ofMillis(1000))
-                .moveTo(width / 10, height / 2)
-                .release().perform();
+//        new TouchAction(driver).press(width * 9 / 10, height / 2)
+//                .waitAction(Duration.ofMillis(1000))
+//                .moveTo(width / 10, height / 2)
+//                .release().perform();
     }
 
     public void scrollUpTo(String text) {
@@ -284,10 +416,10 @@ public class BasePage {
                 driver.findElement(byOfElementToBeFound).click();
                 return;
             }
-            new TouchAction(driver).press(width * 6 / 7, height)
-                    .waitAction(Duration.ofMillis(1000))
-                    .moveTo(width / 7, height)
-                    .release().perform();
+//            new TouchAction(driver).press(width * 6 / 7, height)
+//                    .waitAction(Duration.ofMillis(1000))
+//                    .moveTo(width / 7, height)
+//                    .release().perform();
             count++;
         }
         Assert.fail("Could not find element with by - " + byOfElementToBeFound.toString());
@@ -314,19 +446,19 @@ public class BasePage {
                 if (_count == count) {
                     flag = false;
                 } else {
-                    new TouchAction(driver).press(width - x_int, y_int)
-                            .waitAction(Duration.ofMillis(1000))
-                            .moveTo(x_int, y_int)
-                            .release().perform();
+//                    new TouchAction(driver).press(width - x_int, y_int)
+//                            .waitAction(Duration.ofMillis(1000))
+//                            .moveTo(x_int, y_int)
+//                            .release().perform();
 
                     _count++;
                     System.out.println("Swipe Count :: " + _count);
                 }
             } catch (Exception e) {
-                new TouchAction(driver).press(width - 100, y_int + 100)
-                        .waitAction(Duration.ofMillis(1000))
-                        .moveTo(x_int + 100, y_int + 100)
-                        .release().perform();
+//                new TouchAction(driver).press(width - 100, y_int + 100)
+//                        .waitAction(Duration.ofMillis(1000))
+//                        .moveTo(x_int + 100, y_int + 100)
+//                        .release().perform();
 
                 _count++;
                 System.out.println("Inside catch block");
@@ -342,10 +474,10 @@ public class BasePage {
     }
 
     protected void swipeFromTo(WebElement startElement, WebElement stopElement) {
-        new TouchAction(driver).press(startElement.getLocation().getX(), startElement.getLocation().getY())
-                .waitAction(Duration.ofMillis(1000))
-                .moveTo(stopElement.getLocation().getX(), stopElement.getLocation().getY())
-                .release().perform();
+//        new TouchAction(driver).press(startElement.getLocation().getX(), startElement.getLocation().getY())
+//                .waitAction(Duration.ofMillis(1000))
+//                .moveTo(stopElement.getLocation().getX(), stopElement.getLocation().getY())
+//                .release().perform();
 
     }
 
@@ -356,7 +488,7 @@ public class BasePage {
         int yAxis = webElement.getLocation().getY();
         TouchAction act = new TouchAction(driver);
         System.out.print(xAxisStartPoint + " " + yAxis);
-        act.longPress(xAxisStartPoint, yAxis).moveTo(xAxisEndPoint - 1, yAxis).release().perform();
+//        act.longPress(xAxisStartPoint, yAxis).moveTo(xAxisEndPoint - 1, yAxis).release().perform();
     }
 
     public void navigateBack() {
@@ -380,5 +512,45 @@ public class BasePage {
                 return true;
             }
         return false;
+    }
+
+    protected void clickTwice(WebElement element) {
+        element.click();
+        element.click();
+    }
+
+    protected void clickLastElementFromList(List<WebElement> list) {
+        list.get(0).click();
+        AtomicBoolean isNotClicked = new AtomicBoolean(true);
+        while (isNotClicked.get()) {
+            AtomicInteger initSize = new AtomicInteger(list.size());
+            initSize.set(list.size());
+            list.forEach(element -> {
+                try {
+                    waitForElementToBeVisible(element);
+                    element.click();
+                    waitForElementToBeVisible(element);
+                    if (initSize.get() < list.size() || list.size() == 0)
+                        isNotClicked.set(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    isNotClicked.set(false);
+                }
+
+            });
+        }
+    }
+
+    public void executeCommand(String command) throws IOException, InterruptedException {
+        Process process = getRuntime().exec(command);
+        process.waitFor();
+        System.out.println(process.exitValue());
+    }
+
+    protected <T> T getElementFile(Class<T> reference) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        String name  = reference.getName();
+        System.out.println(name);
+        T obj = (T) Class.forName(name).newInstance();
+        return obj;
     }
 }
